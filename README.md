@@ -1,4 +1,4 @@
-# DTyoungpoong: 폐배터리 습식 제련 공정 최적화를 위한 AI 기반 디지털 트윈 시스템 🏭♻️
+# DTyoungpoong: 폐배터리 습식 제련 공정 최적화를 위한 AI 기반 디지털 트윈 시스템
 
 한림대학교 SW중심대학사업 2026학년도 2학기 소프트웨어캡스톤디자인 프로젝트
 
@@ -12,18 +12,17 @@
 
 ## 1. 프로젝트 개요
 
-전기차 폐배터리 블랙파우더(Black Powder)의 습식 제련 공정에서 핵심 금속(니켈, 코발트 등)의 회수율을 극대화하기 위한 **'AI 최적 공정 레시피 추천 및 3D 가상 공장(Digital Twin) 시각화 시스템'**입니다.
+폐배터리 리튬이온 배터리 재활용 공정 중 황산을 활용한 습식 제련(Hydrometallurgy)은 95% 이상의 높은 핵심 금속(니켈, 코발트 등) 회수율을 달성할 수 있는 친환경 공정입니다. 그러나 투입되는 원료(블랙파우더)의 성분이 매번 달라져 기존 숙련공의 경험적 제어만으로는 품질과 수율을 일정하게 유지하기 어렵습니다.
 
-본 프로젝트는 불균일한 원료 성분 데이터를 기반으로 머신러닝 예측 모델을 구축하고, 다목적 최적화 알고리즘을 통해 도출된 최적의 산(Acid) 투입량 및 반응 온도 레시피를 Unity 3D 기반 가상 공장 및 대시보드에 실시간으로 연동합니다.
-
-### 🏗 시스템 아키텍처 및 핵심 기술
-1. **[Module 1] 데이터 전처리 (Data Preprocessing):** 화학 반응 속도론(축소 코어 모델) 기반 파생 변수 생성 및 물질 수지를 보존하는 KNN 결측치 정제
-2. **[Module 2] 회수율 예측 모델링 (AI Prediction & XAI):** XGBoost/LightGBM/Random Forest 기반 회수율 예측 및 SHAP(SHapley Additive exPlanations)을 이용한 변수 중요도 시각화
-3. **[Module 3] 공정 최적화 및 시스템 연동 (Optimization & Digital Twin):** 다목적 최적화 알고리즘(NSGA-II, Grid Search)을 활용한 파레토 최적해 탐색, WebSocket API를 통한 Unity 3D 실시간 제어(ISO 23247 표준 지향)
+본 프로젝트는 다음과 같은 솔루션을 제공합니다:
+1. **도메인 지식 기반 데이터 전처리:** 화학 반응 속도론(축소 코어 모델)과 물질 수지를 보존하는 통계적 대치 기법 적용
+2. **XAI 기반 고정밀 회수율 예측:** 앙상블 회귀 모델(XGBoost, LightGBM, Random Forest) 및 SHAP 기반 공정 인자 해석
+3. **다목적 공정 레시피 최적화:** 니켈/코발트 회수율 극대화 및 약품/에너지 절감을 동시에 달성하는 파레토 최적해 도출
+4. **3D 디지털 트윈 가상 공장:** ISO 23247 표준을 고려한 3D Unity 시뮬레이션 및 실시간 제어 대시보드 연동
 
 ---
 
-## 2. 레포지토리 구조
+## 2. 디렉토리 구조
 
 ```text
 DTyoungpoong/
@@ -39,48 +38,31 @@ DTyoungpoong/
 │   ├── evaluate.py             # 정량적 평가 (RMSE, MAE, R²) 및 과적합 진단
 │   └── xai.py                  # SHAP 기반 변수 기여도 시각화
 ├── module3_optimization/       # [Module 3] 최적 공정 레시피 추천 시스템
-│   ├── objectives.py           # 다목적 최적화 목적 함수
+│   ├── objectives.py           # 다목적 최적화 함수 정의
 │   ├── constraints.py          # 화학/물리적 공정 제약조건
 │   └── optimizer.py            # Grid Search & 메타휴리스틱 최적화 알고리즘
-├── notebooks/                  # 데이터 분석(EDA) 및 모델링 실험용 Jupyter Notebook
-├── docs/                       # 기획서 및 통합 분석 보고서
+├── notebooks/                  # EDA 및 단계별 검증 Jupyter Notebooks
+├── docs/                       # 프로젝트 보고서 및 아키텍처 문서
 │   └── REPORT.md               # 캡스톤 최종/통합 기술 보고서
 ├── requirements.txt            # 의존성 패키지 목록
-└── README.md                   # 프로젝트 개요 및 가이드 (본 문서)
+└── README.md                   # 프로젝트 안내 문서
 ```
 
 ---
 
-## 3. 데이터셋 설명 및 보안 유의사항
+## 3. 시작하기
 
-- **데이터 소스:** 폐배터리 블랙파우더 성분 분석 랩실 데이터 (니켈, 코발트 함량, 불순물 수치, 공정 온도, 시간, 산 투입량 등)
-- **보안 유의사항:**
-  - 본 레포지토리의 `data/` 폴더에 포함되는 원본 데이터는 기업 보안 및 개인정보 보호를 위해 비식별화/익명화 처리된 샘플 데이터셋을 사용합니다.
-  - 대용량 원본 파일(`.csv`, `.xlsx`, `.zip`)은 `.gitignore`에 의해 원격 저장소 커밋에서 제외됩니다.
-
----
-
-## 4. 환경 설정 및 설치
-
-### 4.1 Python 백엔드 환경 (AI 연산)
-- **권장 환경:** Python 3.9+
+### 3.1 환경 설정
 ```bash
 # 가상환경 생성 및 활성화
 python3 -m venv venv
 source venv/bin/activate  # macOS / Linux
 
-# 필수 라이브러리 설치
+# 패키지 설치
 pip install -r requirements.txt
 ```
 
-### 4.2 프론트엔드 환경 (3D 시각화)
-- **엔진:** Unity Editor 2022.3 LTS 이상
-- **에셋 및 플러그인:** glTFUtility (3D 에셋 임포트용), WebGL 빌드 모듈, Youngpoong 에셋 패키지
-
----
-
-## 5. 모듈별 실행 방법
-
+### 3.2 실행 예시
 ```bash
 # 1. 데이터 전처리 파이프라인 실행
 python -m module1_preprocessing.pipeline
@@ -91,8 +73,3 @@ python -m module2_prediction.models
 # 3. 최적 공정 레시피 도출
 python -m module3_optimization.optimizer
 ```
-
----
-
-## 6. 통합 분석 보고서
-상세한 데이터 탐색(EDA) 과정, 모델별 하이퍼파라미터 튜닝 근거, 시스템 기대효과 등의 심층적인 내용은 [docs/REPORT.md](docs/REPORT.md)에서 확인할 수 있습니다.
