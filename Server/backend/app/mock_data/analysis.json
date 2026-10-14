@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "data_type": "mock",
+    "description_ko": "A 파트 연동 전 화면 및 API 시험용 모의 데이터",
+    "field_labels_ko": {
+      "ni_recovery_pct": "니켈 회수율 예측값(%)",
+      "co_recovery_pct": "코발트 회수율 예측값(%)",
+      "sulfuric_acid_l": "추천 황산 투입량(L)",
+      "leaching_temperature_c": "추천 침출 온도(°C)",
+      "leaching_time_hr": "추천 침출 시간(시간)"
+    }
+  },
+  "schema_version": "draft-1",
+  "source": "mock",
+  "current_prediction": {
+    "ni_recovery_pct": 85.65,
+    "co_recovery_pct": 78.45
+  },
+  "recommendation": {
+    "process_conditions": {
+      "sulfuric_acid_l": 1050.0,
+      "leaching_temperature_c": 62.0,
+      "leaching_time_hr": 5.5
+    },
+    "expected_recovery": {
+      "ni_recovery_pct": 89.2,
+      "co_recovery_pct": 82.1
+    }
+  }
+}
