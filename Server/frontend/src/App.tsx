@@ -23,6 +23,24 @@ function App() {
       .catch(() => setConnectionFailed(true))
   }, [])
 
+  useEffect(() => {
+    const shouldPoll = commandQueued || factoryState?.state === 'queued' || factoryState?.state === 'running'
+    if (!shouldPoll) return
+
+    const timer = window.setTimeout(() => {
+      getFactoryState()
+        .then((state) => {
+          setFactoryState(state)
+          setCommandQueued(false)
+        })
+        .catch((caught: unknown) => {
+          setError(caught instanceof Error ? caught.message : '가상 공장 상태 확인에 실패했습니다.')
+        })
+    }, commandQueued ? 100 : 1000)
+
+    return () => window.clearTimeout(timer)
+  }, [commandQueued, factoryState?.state])
+
   async function handleAnalyze(payload: AnalyzeRequest) {
     setAnalyzing(true)
     setError(null)
@@ -46,16 +64,6 @@ function App() {
       await applyFactory(analysis.request_id, analysis.recommendation.process_conditions)
       setCommandQueued(true)
       setFactoryState(null)
-      window.setTimeout(() => {
-        getFactoryState()
-          .then((state) => {
-            setFactoryState(state)
-            setCommandQueued(false)
-          })
-          .catch((caught: unknown) => {
-            setError(caught instanceof Error ? caught.message : '가상 공장 상태 확인에 실패했습니다.')
-          })
-      }, 100)
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : '가상 공장 명령 전송에 실패했습니다.')
     } finally {

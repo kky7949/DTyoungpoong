@@ -129,6 +129,8 @@ describe('HMI dashboard', () => {
     expect(screen.getByText('Ni 85.65%')).toBeInTheDocument()
     expect(screen.getByText('Co 78.45%')).toBeInTheDocument()
     expect(screen.getByText('추천 침출 온도 62°C')).toBeInTheDocument()
+    expect(screen.getByText('Ni 89.2%')).toBeInTheDocument()
+    expect(screen.getByText('Co 82.1%')).toBeInTheDocument()
     expect(screen.getByText('일부 결측값은 AI 전처리 과정에서 보정됩니다.')).toBeInTheDocument()
   })
 

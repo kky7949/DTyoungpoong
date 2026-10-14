@@ -1,6 +1,9 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.api.factory import router as factory_router
 from app.api.factory import unknown_factory_command_handler
@@ -30,3 +33,9 @@ app.include_router(health_router)
 app.include_router(status_router)
 app.include_router(process_router)
 app.include_router(factory_router)
+
+# 프로덕션 빌드가 있을 때만 HMI를 같은 8000번 주소에서 제공한다.
+# API 라우터를 먼저 등록해 정적 파일 mount가 /health와 /api 경로를 가리지 않게 한다.
+frontend_dist = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+if frontend_dist.is_dir():
+    app.mount("/", StaticFiles(directory=frontend_dist, html=True), name="frontend")

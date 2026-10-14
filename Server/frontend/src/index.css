@@ -58,6 +58,9 @@ dl div { display: flex; justify-content: space-between; gap: 20px; }
 dt { color: var(--muted); }
 .full-result { color: #f2f7fb; font-weight: 800; }
 dd { margin: 0; font-weight: 800; color: #f2f7fb; }
+.expected-recovery { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+.expected-recovery span { flex-basis: 100%; color: var(--muted); font-size: .78rem; }
+.expected-recovery strong { color: #74e6dc; }
 .empty-state { min-height: 218px; display: grid; place-items: center; color: var(--muted); border: 1px dashed #2b4962; border-radius: 13px; text-align: center; padding: 30px; }
 .factory-panel { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
 .factory-state { margin: 9px 0 0; color: var(--muted); }

@@ -37,6 +37,11 @@ export function AnalysisResults({ result }: Props) {
               </div>
               <div><dt>침출 시간</dt><dd>{result.recommendation.process_conditions.leaching_time_hr}시간</dd></div>
             </dl>
+            <div className="expected-recovery">
+              <span>추천 조건 예상 회수율</span>
+              <strong>Ni {result.recommendation.expected_recovery.ni_recovery_pct}%</strong>
+              <strong>Co {result.recommendation.expected_recovery.co_recovery_pct}%</strong>
+            </div>
           </div>
           <p className="notice">일부 결측값은 AI 전처리 과정에서 보정됩니다.</p>
         </>
