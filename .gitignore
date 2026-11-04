@@ -47,7 +47,10 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 *.csv
+*.tsv
+*.xls
 *.xlsx
+*.xlsm
 *.parquet
 *.zip
 *.tar.gz
@@ -67,4 +70,24 @@ data/processed/*
 
 # Environment variables & secrets
 .env
-.env.local
+.env.*
+!.env.example
+
+# Web dependencies & generated files
+node_modules/
+.next/
+.vite/
+coverage/
+*.tsbuildinfo
+
+# Local model artifacts, reports & test caches
+*.joblib
+*.pkl
+*.pickle
+*.onnx
+*.pt
+*.pth
+outputs/
+.pytest_cache/
+.ruff_cache/
+*.log

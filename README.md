@@ -1,75 +1,85 @@
-# DTyoungpoong: 폐배터리 습식 제련 공정 최적화를 위한 AI 기반 디지털 트윈 시스템
+# 영풍그룹 금속 회수율 최적화 디지털 트윈
 
-한림대학교 SW중심대학사업 2026학년도 2학기 소프트웨어캡스톤디자인 프로젝트
+한림대학교 2026학년도 2학기 소프트웨어캡스톤디자인 프로젝트입니다. 폐배터리 습식 제련 공정의 데이터를 정제하고 Ni·Co 회수율을 예측하여, 공정 조건의 분석 결과를 웹과 Unity 가상 공장에 연결하는 것을 목표로 합니다.
 
-- **팀명:** 박치기공룡
-- **팀대표:** 김병진 (콘텐츠IT)
-- **팀원:** 남기원 (스마트IOT), 김용준 (콘텐츠IT)
-- **지도교수:** 허종욱 교수님
-- **프로젝트 원격 저장소:** [https://github.com/kky7949/DTyoungpoong](https://github.com/kky7949/DTyoungpoong)
+- 팀명: 박치기공룡
+- 팀대표: 김병진 (콘텐츠IT)
+- 팀원: 남기원 (스마트IOT), 김용준 (콘텐츠IT)
+- 지도교수: 허종욱 교수님
+- 저장소: [kky7949/DTyoungpoong](https://github.com/kky7949/DTyoungpoong)
+- 현황 정리 기준: 2026년 11월 4일, 첫 자문 사전자료 및 저장소 점검
 
----
+## 현재 진행상황
 
-## 1. 프로젝트 개요
+**프로젝트에서 수행한 작업과 이 저장소에 포함된 코드는 다릅니다.** 현재는 실제 작업 결과에 맞춰 저장소 구조와 설명을 정리한 상태입니다. 전처리·학습 실험 코드, 데이터, 웹·서버 소스 및 Unity 프로젝트는 아직 이 저장소에 통합되어 있지 않습니다.
 
-폐배터리 리튬이온 배터리 재활용 공정 중 황산을 활용한 습식 제련(Hydrometallurgy)은 95% 이상의 높은 핵심 금속(니켈, 코발트 등) 회수율을 달성할 수 있는 친환경 공정입니다. 그러나 투입되는 원료(블랙파우더)의 성분이 매번 달라져 기존 숙련공의 경험적 제어만으로는 품질과 수율을 일정하게 유지하기 어렵습니다.
+| 영역 | 프로젝트에서 확인된 진행상황 | 이 저장소의 상태 |
+| --- | --- | --- |
+| 데이터 전처리 | 원료 성분 211개·공정 조건 80개 결측 대치, CLEAN 420행×24열 생성, 파생변수 8개 계산·검증 | 상위 폴더와 처리 기준 안내. 실제 수행 코드는 미통합 |
+| 회수율 예측 Model1 | Random Forest 파생변수·A/B/C/D 비교, 모델 B 후보 선정, 과적합 진단. 개선·최종 확정 미완료 | 상위 폴더와 실험 안내, 기존 회귀 평가 함수 1개 유지 |
+| 공정 조건 최적화 | 구현 완료를 확인할 근거 없음. 방법·허용범위 확정 필요 | 상위 폴더와 안내만 유지 |
+| 디지털 트윈 웹·서버 | React/TypeScript·FastAPI로 입력→분석→조건 수정→적용 요청 흐름 구현. 모의 데이터와 Unity 대역 스크립트로 확인 | `web/` 안내만 추가. 실제 프런트엔드·서버 소스 미통합 |
+| Unity/3D 가상 공장 | 진행상황·사전질문 추후 작성. 실제 AI·Unity 연동 미완료 | `unity/` 안내만 추가 |
 
-본 프로젝트는 다음과 같은 솔루션을 제공합니다:
-1. **도메인 지식 기반 데이터 전처리:** 화학 반응 속도론(축소 코어 모델)과 물질 수지를 보존하는 통계적 대치 기법 적용
-2. **XAI 기반 고정밀 회수율 예측:** 앙상블 회귀 모델(XGBoost, LightGBM, Random Forest) 및 SHAP 기반 공정 인자 해석
-3. **다목적 공정 레시피 최적화:** 니켈/코발트 회수율 극대화 및 약품/에너지 절감을 동시에 달성하는 파레토 최적해 도출
-4. **3D 디지털 트윈 가상 공장:** ISO 23247 표준을 고려한 3D Unity 시뮬레이션 및 실시간 제어 대시보드 연동
+웹에서 추천 조건과 실행 상태가 표시된다는 사실은 실제 AI 추론·최적화 또는 Unity 실행이 연결되었다는 뜻이 아닙니다. 자세한 수치, 검증 한계와 사전질문은 [진행상황 보고서](docs/REPORT.md)에 정리했습니다.
 
----
-
-## 2. 디렉토리 구조
+## 폴더 구성
 
 ```text
 DTyoungpoong/
-├── data/                       # 데이터 디렉토리 (원본 및 전처리 데이터)
-│   ├── raw/                    # 원본 랩실 데이터 (보안/용량상 git 제외)
-│   └── processed/              # 정제 및 특성공학 완료 데이터
-├── module1_preprocessing/      # [Module 1] 데이터 정제 및 특성공학 파이프라인
-│   ├── cleaner.py              # 결측치/이상치 처리 및 물질수지 검증
-│   ├── features.py             # 축소 코어 모델 기반 파생변수 생성
-│   └── pipeline.py             # 엔드투엔드 전처리 실행기
-├── module2_prediction/         # [Module 2] 회수율 예측 모델링 및 XAI
-│   ├── models.py               # 회귀 모델 정의 및 학습 래퍼
-│   ├── evaluate.py             # 정량적 평가 (RMSE, MAE, R²) 및 과적합 진단
-│   └── xai.py                  # SHAP 기반 변수 기여도 시각화
-├── module3_optimization/       # [Module 3] 최적 공정 레시피 추천 시스템
-│   ├── objectives.py           # 다목적 최적화 함수 정의
-│   ├── constraints.py          # 화학/물리적 공정 제약조건
-│   └── optimizer.py            # Grid Search & 메타휴리스틱 최적화 알고리즘
-├── notebooks/                  # EDA 및 단계별 검증 Jupyter Notebooks
-├── docs/                       # 프로젝트 보고서 및 아키텍처 문서
-│   └── REPORT.md               # 캡스톤 최종/통합 기술 보고서
-├── requirements.txt            # 의존성 패키지 목록
-└── README.md                   # 프로젝트 안내 문서
+├── data/
+│   ├── README.md                 # 원본·정제 데이터 보관 기준
+│   ├── raw/.gitkeep              # 원본 데이터 위치, 실제 데이터 Git 제외
+│   └── processed/.gitkeep        # 정제 데이터 위치, 실제 데이터 Git 제외
+├── module1_preprocessing/
+│   └── README.md                 # 확인된 전처리 방식과 실제 코드 통합 안내
+├── module2_prediction/
+│   ├── README.md                 # Model1 실험·평가와 미완료 사항
+│   └── evaluate.py               # 기존 RMSE·MAE·R² 계산 함수
+├── module3_optimization/
+│   └── README.md                 # 미진행 영역, 향후 구현 범위
+├── web/
+│   └── README.md                 # 웹·서버의 모의 검증 범위와 연동 과제
+├── unity/
+│   └── README.md                 # 진행상황·사전질문 추후 작성
+├── notebooks/
+│   └── README.md                 # 실제 실험 노트북을 추가할 때의 기준
+├── docs/
+│   └── REPORT.md                 # 실험 수치·진행상황·사전질문·구조 정리 내역
+├── .gitignore
+├── requirements.txt             # 현재 남아 있는 평가 함수의 의존성만 포함
+└── README.md
 ```
 
----
+진행되지 않은 세부 기능의 빈 스크립트·클래스·노트북은 미리 만들지 않습니다. 실제 코드와 산출물을 정리해 가져올 때 필요한 하위 구조를 추가합니다.
 
-## 3. 시작하기
+## 현재 사용할 수 있는 코드
 
-### 3.1 환경 설정
+현재 독립적으로 사용할 수 있는 코드는 `module2_prediction/evaluate.py`의 `evaluate_regression(y_true, y_pred, prefix="Test")`입니다. 전처리 실행기, 학습 실행기, 최적화 실행기는 제공하지 않습니다.
+
+평가 함수가 필요한 경우에만 저장소 루트에서 다음과 같이 환경을 준비합니다.
+
 ```bash
-# 가상환경 생성 및 활성화
-python3 -m venv venv
-source venv/bin/activate  # macOS / Linux
-
-# 패키지 설치
-pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 ```
 
-### 3.2 실행 예시
-```bash
-# 1. 데이터 전처리 파이프라인 실행
-python -m module1_preprocessing.pipeline
+```python
+from module2_prediction.evaluate import evaluate_regression
 
-# 2. 회수율 예측 모델 학습 및 평가
-python -m module2_prediction.models
-
-# 3. 최적 공정 레시피 도출
-python -m module3_optimization.optimizer
+# 실제 정답과 예측값을 같은 행 순서로 전달합니다.
+metrics = evaluate_regression(y_true, y_pred, prefix="Test")
 ```
+
+`requirements.txt`는 전체 프로젝트의 실행 환경을 정의하지 않습니다. 실제 전처리·웹·서버 코드가 통합되면 해당 코드에서 사용하는 의존성과 실행 절차를 함께 추가합니다.
+
+## 다음 작업
+
+1. 기존 전처리 코드와 실험 노트북, 산출물을 정리해 Module 1·2에 통합합니다. 대치 통계는 Train에서만 계산한 원래 절차를 유지합니다.
+2. RAW 데이터사전 기준 이상치 처리 검증, 분석일자 21개 결측 처리 방침, 정규화·표준화 필요 여부를 검토합니다.
+3. Model1 과적합 개선과 최종 입력·모델 선정을 진행합니다. 후보 비교와 재학습 후 Test 결과는 구분합니다.
+4. 웹·서버의 실제 소스를 통합하고 AI·Unity와 연결합니다. 서버 조건 검증, 명령 수신 확인·중복 방지, 시연 인증 범위는 멘토링 후 결정합니다.
+5. Unity 진행상황은 담당 파트에서 작성합니다. 실제 작업이 확인될 때 코드와 에셋을 추가합니다.
+
+이 목록은 후속 작업이며 완료 목록이 아닙니다. 이번 정리에서 삭제한 초기 예제 코드는 기존 Git 이력에 남아 있습니다.
