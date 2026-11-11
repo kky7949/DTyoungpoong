@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "unity_version": "6000.0.68f1",
+  "description": "Externally supplied assets are not committed. Import these original packages in the listed order, retaining their paths and .meta GUIDs.",
+  "packages": [
+    {
+      "file": "fac_watertank.unitypackage",
+      "source_subdirectory": "object",
+      "bytes": 984377637,
+      "sha256": "6426d3baac1baad97d6a1e30a9bfe6f379764eca8e3a943ef769d34322b37764",
+      "assets": [
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Battery_01_BaseMap.mat",
+          "guid": "32c00afd284737846a1752ad62df8e3b",
+          "bytes": 8694
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Tank_Glass_01_01.mat",
+          "guid": "f3a4b490799615848a5e90c53f130d62",
+          "bytes": 8485
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Water_Tank_01_01_Base_color 1.mat",
+          "guid": "25b746cb8e51a8c44b8d71dee7023786",
+          "bytes": 8514
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Water_Tank_01_Water_Tank_01_01_BaseMap.mat",
+          "guid": "4e990db6b6069b94a81da770cadff374",
+          "bytes": 8597
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Battery_01_BaseMap.png",
+          "guid": "3e97d0457ec59dd4487c08aca69f5c3f",
+          "bytes": 3332268
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Battery_01_MaskMap.png",
+          "guid": "983de55e1783a11458132b471f3bc1ef",
+          "bytes": 1683445
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Battery_01_Normal.png",
+          "guid": "193a18fa461d94d49a67c40e03541b2d",
+          "bytes": 5347033
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Water_Tank_01_Water_Tank_01_01_BaseMap.png",
+          "guid": "0c7ddead1d123b948be3fd67959f75fe",
+          "bytes": 5825853
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Water_Tank_01_Water_Tank_01_01_MaskMap.png",
+          "guid": "58608f74735909d4eae1abd692928a08",
+          "bytes": 9413110
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Water_Tank_01_Water_Tank_01_01_Normal.png",
+          "guid": "bbfb9fc303d67104f80face18e2ba61e",
+          "bytes": 9137172
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Water_2.fbx",
+          "guid": "6467a19624ea78e45892db1b7b9012ed",
+          "bytes": 271452
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Water_Tank_01.fbx",
+          "guid": "389c2b8316d24b24a85268e5b2c59027",
+          "bytes": 23242832
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/water.abc",
+          "guid": "d72718896a8345d47855532c96abcf0b",
+          "bytes": 1578106917
+        },
+        {
+          "path": "Assets/object/fac_watertank_1.prefab",
+          "guid": "ab61126e00f01a34a91c4e05f338017d",
+          "bytes": 18472
+        }
+      ]
+    },
+    {
+      "file": "waste_battery.unitypackage",
+      "source_subdirectory": "object",
+      "bytes": 19268378,
+      "sha256": "348ea72babce61ef021d82810a5f7d799476575008b89f578674e7eeebb2f8ba",
+      "assets": [
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Battery_03.fbx",
+          "guid": "c1aa49ea04f3b2a41ba269c131235ffb",
+          "bytes": 8864016
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Battery_01_BaseMap.mat",
+          "guid": "32c00afd284737846a1752ad62df8e3b",
+          "bytes": 8694
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Battery_01_BaseMap.png",
+          "guid": "3e97d0457ec59dd4487c08aca69f5c3f",
+          "bytes": 3332268
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Battery_01_MaskMap.png",
+          "guid": "983de55e1783a11458132b471f3bc1ef",
+          "bytes": 1683445
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Battery_01_Normal.png",
+          "guid": "193a18fa461d94d49a67c40e03541b2d",
+          "bytes": 5347033
+        },
+        {
+          "path": "Assets/object/waste_battery_1.prefab",
+          "guid": "13efd63a59ccd0a49ad17912219d96d5",
+          "bytes": 2513
+        }
+      ]
+    },
+    {
+      "file": "factory_inner_2.unitypackage",
+      "source_subdirectory": "map",
+      "bytes": 25569173,
+      "sha256": "46a9ca5c79e2185967c9f386746f02a542c09cd4e00fcc6563813865d46de1c5",
+      "assets": [
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Ceiling_01_01.mat",
+          "guid": "811aa595f6da9b041a9ec39449483a42",
+          "bytes": 8895
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Floor_01.mat",
+          "guid": "aeb58de7754f8e84d87fd1b00c958b2b",
+          "bytes": 8868
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Light_01.mat",
+          "guid": "091c58c92e219c947826c9b1083326f9",
+          "bytes": 8633
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Material.001.mat",
+          "guid": "c443b37ba63efea44ae447bf063beae0",
+          "bytes": 8289
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Pipe.mat",
+          "guid": "23a6bdece2510444bb5b4df4c758161b",
+          "bytes": 8595
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Pipe_2.mat",
+          "guid": "f77461b6295924b469c8bfa974c87ecb",
+          "bytes": 8869
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Materials/Wall_01.001.mat",
+          "guid": "9d5c6300978810545a69ddc68a6c234f",
+          "bytes": 8847
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Ceiling_01_Ceiling_01_01_BaseMap.png",
+          "guid": "5548190c50bf4294ab0ef1828ad05e15",
+          "bytes": 61488
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Ceiling_01_Ceiling_01_01_MaskMap.png",
+          "guid": "49101369721f0ac46bff64e6d62f7c3f",
+          "bytes": 172538
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Ceiling_01_Ceiling_01_01_Normal.png",
+          "guid": "1e514171fd7819f4f9c385de655e482b",
+          "bytes": 649112
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Floor_Floor_01_BaseMap.png",
+          "guid": "b69d8ab590506c04ea1ee06e237c2c2c",
+          "bytes": 283186
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Floor_Floor_01_MaskMap.png",
+          "guid": "53652928d72ca084898f68e7b3bb1911",
+          "bytes": 170959
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Floor_Floor_01_Normal.png",
+          "guid": "9b62c99575628fb45bc420c0f0e9213e",
+          "bytes": 659585
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Pipe_2_DefaultMaterial_BaseMap.png",
+          "guid": "8c8fb6332662f3e488b4958163c85dad",
+          "bytes": 3486067
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Pipe_2_DefaultMaterial_MaskMap.png",
+          "guid": "d52a2ae0b8ff2de409297f97b7303d5e",
+          "bytes": 3025282
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Pipe_2_DefaultMaterial_Normal.png",
+          "guid": "804a63ae7a61c094688df0a02a541168",
+          "bytes": 5637997
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Pipe_Material.001_BaseMap.png",
+          "guid": "3d3611ec008cac3439708293ba711a90",
+          "bytes": 61067
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/Pipe_Material.001_Normal.png",
+          "guid": "fb9e72d84e9177c46aab1f63e9b6bea1",
+          "bytes": 461782
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/pipe_Material.001_MaskMap 1.png",
+          "guid": "276fa898e1bfbcb4ca4e450582d90c1e",
+          "bytes": 92803
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/wall_Wall_01.001_BaseMap.png",
+          "guid": "99000cabcb2407a4f9b7788d875f9190",
+          "bytes": 69118
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/wall_Wall_01.001_MaskMap.png",
+          "guid": "8686d05135fcbe84288e3e86ee9a8fb0",
+          "bytes": 510199
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/Texture/wall_Wall_01.001_Normal.png",
+          "guid": "ee5060d36c575404995abf2e67edb504",
+          "bytes": 571187
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/02_Model/wall_all.fbx",
+          "guid": "50ec6cf0af8fcd74e8aacb62e7c78b14",
+          "bytes": 9516220
+        },
+        {
+          "path": "Assets/Map/factory_inner_2.prefab",
+          "guid": "ce50249b99628c641bcd71b64b93eda7",
+          "bytes": 3688
+        }
+      ]
+    },
+    {
+      "file": "MapSetting_3.unitypackage",
+      "source_subdirectory": "effect",
+      "bytes": 592347,
+      "sha256": "7ad040b75f036e37aba6409324e8f61894ca23aa1c47db16ca1b937105cf6cf7",
+      "assets": [
+        {
+          "path": "Assets/00_Model/03_Koreazinc/01_Scenes/03_Koreazinc/Global Volume Profile.asset",
+          "guid": "d0d71e82998471b47a9a9cc67078d331",
+          "bytes": 7775
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/01_Scenes/03_Koreazinc/ReflectionProbe-0.exr",
+          "guid": "03f5670970945dd4e81bdcee3d3bc060",
+          "bytes": 581147
+        },
+        {
+          "path": "Assets/00_Model/03_Koreazinc/03_SKYandFog.asset",
+          "guid": "8ba92e2dd7f884a0f88b98fa2d235fe7",
+          "bytes": 9856
+        },
+        {
+          "path": "Assets/effect/Koreazinc_MapSetting.prefab",
+          "guid": "bd3c0086ae524de46a5ed9b9b7099fb5",
+          "bytes": 32893
+        }
+      ]
+    }
+  ],
+  "known_source_issues": [
+    {
+      "path": "Assets/00_Model/03_Koreazinc/02_Model/wall_all.fbx.meta",
+      "guid": "a3ac9ed7b7747954685f1e82f491c7fa",
+      "description": "The provided FBX importer remap for Wall_01 references a material absent from both the original package inventory and source project. This checkpoint preserves the source; check this slot after restoring external assets."
+    }
+  ]
+}

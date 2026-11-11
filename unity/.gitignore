@@ -1,0 +1,34 @@
+# Unity regenerates these locally.
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Bb]uild/
+/[Bb]uilds/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/.vs/
+/.vscode/
+/*.csproj
+/*.sln
+/*.slnx
+
+# Company-provided assets are restored from the four original packages.
+/Assets/00_Model/
+/Assets/00_Model.meta
+/Assets/object/
+/Assets/object.meta
+/Assets/Map/
+/Assets/Map.meta
+/Assets/effect/
+/Assets/effect.meta
+*.unitypackage
+*.abc
+*.abc.meta
+
+# Local captures and diagnostics are not checkpoint source files.
+*.mp4
+*.mov
+*.webm
+*.log
