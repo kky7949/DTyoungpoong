@@ -27,9 +27,10 @@ Unity Package Manager의 패키지 이름으로 설치 기능에서 `com.unity.n
 
 1. 빈 GameObject `BConnection`을 만든다.
 2. `FastApiFactoryClient`를 붙인다. 실행 중인 씬 전체에 하나만 둔다.
-3. Inspector의 `Base Url`에 서버 주소를 입력한다.
-   - B와 같은 PC: `http://127.0.0.1:8000` (기본 실행 예시)
-   - 다른 PC: `http://<B PC의 IPv4 주소>:<B 포트>`
+3. Inspector의 `Base Url`에 B 서버의 기본 주소를 입력한다. `/health` 같은 API 경로는 생략한다.
+   - B와 같은 PC에서 웹 README의 실행 명령을 사용한 경우 `http://127.0.0.1:8000`을 입력한다.
+   - 다른 PC에서 실행한 경우 `http://<B PC의 IPv4 주소>:<B 포트>`를 입력한다. B 담당자는 웹 README의 [실제 A와 Unity 연결](../../README.md#3-실제-a와-unity-연결) 절차에서 `ipconfig`로 IPv4 주소를 확인할 수 있다.
+   - 예제 코드에 입력된 초기 포트는 `8001`이다. B가 `8000`에서 실행 중이면 Inspector를 `8000`으로 바꾼다.
 4. 조회/보고 간격은 기본 1초, 요청 제한 시간은 기본 5초다. B의 연결 끊김 기준은 현재 10초이므로 실행 중에도 통신이 이어져야 한다.
 5. B 담당자는 다른 PC 연결 시 FastAPI를 `--host 0.0.0.0`으로 실행하고 **Mock Unity 스크립트를 종료**한다.
 6. Unity PC 브라우저에서 B의 서버 주소에 `/health`를 붙여 응답을 확인한다.
