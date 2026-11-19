@@ -1,0 +1,24 @@
+# Python
+backend/.venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Node and frontend build
+frontend/node_modules/
+frontend/dist/
+
+# Local environment and tools
+.env
+backend/.env
+frontend/.env
+.tools/
+.tmp/
+/output/
+/tmp/
+/scripts/build-unity-guide.py
+
+# IDE and OS
+.vscode/
+.DS_Store
+Thumbs.db
