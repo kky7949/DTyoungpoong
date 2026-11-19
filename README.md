@@ -7,13 +7,13 @@
 - 팀원: 남기원 (스마트IOT), 김용준 (콘텐츠IT)
 - 지도교수: 허종욱 교수님
 - 저장소: [kky7949/DTyoungpoong](https://github.com/kky7949/DTyoungpoong)
-- 현황 정리 기준: 전처리는 사전자료, Unity는 2026년 11월 11일 공개 시연 체크포인트, 웹·서버는 2026년 11월 19일 통합본
+- 현황 정리 기준: 전처리는 사전자료, Unity는 2026년 11월 19일 시연·연동 체크포인트, 웹·서버는 2026년 11월 19일 통합본
 
 **[금속 회수율 최적화 대시보드 실행 방법](web/README.md)**
 
 ## 현재 진행상황
 
-이 저장소의 `web/`에는 대시보드와 FastAPI 서버가 있습니다. 실제 A 분석은 팀의 별도 HTTP 서비스에 연결합니다. `unity/`에는 사용자 Play 확인을 마친 Unity 시연 체크포인트가 있습니다. 팀 환경에서 실제 Unity와의 합동 연결도 확인했습니다. 회사 제공 모델·재질·프리팹·Alembic은 원본 패키지로 별도 복원해야 합니다.
+이 저장소의 `web/`에는 대시보드와 FastAPI 서버가 있습니다. 실제 A 분석은 팀의 별도 HTTP 서비스에 연결합니다. `unity/`에는 원료 성분 표시, 공정 카메라 전환, 완료 화면을 포함한 Unity 시연 프로젝트가 있습니다. 11월 18일 팀 환경에서 웹과 Unity Editor의 완료 왕복을 확인했고, 이후 카메라·코드 정리는 Unity Editor와 로컬 시험 서버에서 검증했습니다. 회사 제공 모델·재질·프리팹·Alembic은 원본 패키지로 별도 복원해야 합니다.
 
 | 영역 | 프로젝트에서 확인된 진행상황 | 이 저장소의 상태 |
 | --- | --- | --- |
@@ -21,9 +21,9 @@
 | 회수율 예측 Model1 | Random Forest 파생변수·A/B/C/D 비교, 모델 B 후보 선정, 과적합 진단. 개선·최종 확정 미완료 | 상위 폴더와 실험 안내, 기존 회귀 평가 함수 1개 유지 |
 | 공정 조건 최적화 | B에서 팀 A 분석 서비스의 공정 조건 추천 결과를 확인 | `web/`에 A API 연결 코드 포함. A 모델·최적화 소스는 별도 관리 |
 | 디지털 트윈 웹·서버 | 원료 입력, 실제 A 예측·추천, 공정 조건 적용, 진행률 표시 | [`web/`](web/README.md)에 React·FastAPI 소스, 테스트, 실행 안내 통합 |
-| Unity/3D 가상 공장 | 공장 시연 씬 Play 확인 및 팀 환경의 웹 연동 합동 확인 | `unity/`에 시연 체크포인트, `web/integration/unity/`에 연결 예제와 JSON 검증 도구 포함 |
+| Unity/3D 가상 공장 | 웹 명령 수신·진행률·완료 보고, 성분 7개 표시, 3개 구도 전환과 예상 회수율 완료 화면 | `unity/`에 실행 씬과 설정, `web/integration/unity/`에 연결 예제와 JSON 검증 도구 포함 |
 
-[웹 실행 안내](web/README.md)에서 모의 시연과 실제 A·Unity 연결 절차를 확인할 수 있습니다. 초기 실험과 Unity 시연 체크포인트는 [진행상황 보고서](docs/REPORT.md)를 참고합니다.
+[웹 실행 안내](web/README.md)에서 모의 시연과 실제 A·Unity 연결 절차를 확인할 수 있습니다. 초기 실험은 [진행상황 보고서](docs/REPORT.md), Unity의 단계별 작업과 시험 결과는 [Unity 진행 이력](unity/CHANGELOG.md)에 정리했습니다.
 
 ## 폴더 구성
 
@@ -46,12 +46,13 @@ DTyoungpoong/
 │   ├── integration/unity/         # Unity 연결 예제 및 JSON 검증
 │   └── README.md                  # 대시보드 실행 방법
 ├── unity/
-│   ├── Assets/                   # C# 2개·씬 3개·HDRP·TMP·InputSystem 및 .meta
+│   ├── Assets/                   # 공정·HTTP 연동 스크립트와 시연 씬 5개
 │   ├── Packages/                 # 버전을 고정한 패키지와 의존성 잠금 파일
 │   ├── ProjectSettings/          # HDRP와 시연 씬 설정
 │   ├── EXTERNAL_ASSETS.json      # 외부 패키지 해시와 경로·GUID 목록
-│   ├── tools/                    # 씬 내장 메시 공개 방지 검사
+│   ├── tools/                    # 유리 재질 복원과 씬 내장 메시 검사
 │   ├── .gitignore                # 제공 원본·Alembic·캐시·녹화 제외
+│   ├── CHANGELOG.md              # 날짜별 작업과 검증 범위
 │   └── README.md                 # 외부 에셋 복원과 Play 검증 절차
 ├── notebooks/
 │   └── README.md                 # 실제 실험 노트북을 추가할 때의 기준

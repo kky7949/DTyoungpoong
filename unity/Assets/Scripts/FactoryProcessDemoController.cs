@@ -20,6 +20,7 @@ public sealed class FactoryProcessDemoController : MonoBehaviour
     [SerializeField] private Button startButton = null;
     [SerializeField] private Button resetButton = null;
     [SerializeField] private TMP_Text statusText = null;
+    [SerializeField] private bool useExhibitionLabels = false;
 
     [Header("Battery Feed")]
     [SerializeField] private Transform batteryObject = null;
@@ -468,10 +469,38 @@ public sealed class FactoryProcessDemoController : MonoBehaviour
     }
 
     private void SetState(ProcessState next)
+{
+    state = next;
+    startButton.interactable = next == ProcessState.Ready;
+    resetButton.interactable = next != ProcessState.Ready;
+
+    statusText.text = useExhibitionLabels
+        ? GetExhibitionStatus(next)
+        : next.ToString();
+}
+
+private static string GetExhibitionStatus(ProcessState current)
     {
-        state = next;
-        startButton.interactable = next == ProcessState.Ready;
-        resetButton.interactable = next != ProcessState.Ready;
-        statusText.text = next.ToString();
+    switch (current)
+        {
+        case ProcessState.Ready:
+            return "대기 | 공정 시작을 눌러주세요";
+        case ProcessState.Filling:
+            return "1/5 | 액체 주입 중";
+        case ProcessState.Settling:
+            return "2/5 | 수면 안정화 중";
+        case ProcessState.Feeding:
+            return "3/5 | 원료 투입 중";
+        case ProcessState.Mixing:
+            return "4/5 | 교반 중";
+        case ProcessState.Draining:
+            return "5/5 | 배출 중";
+        case ProcessState.Processing:
+            return "공정 진행 중";
+        case ProcessState.Complete:
+            return "공정 시연 완료";
+        default:
+            return current.ToString();
+        }
     }
 }
