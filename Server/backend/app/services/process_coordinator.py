@@ -10,5 +10,7 @@ class ProcessCoordinator:
     def analyze(self, request: AnalyzeRequest) -> AnalyzeResponse:
         try:
             return self.provider.analyze(request)
+        except AnalysisAdapterError:
+            raise
         except Exception as exc:
             raise AnalysisAdapterError from exc

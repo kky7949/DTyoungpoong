@@ -1,6 +1,10 @@
-from typing import TypedDict
+from typing import NotRequired, TypedDict
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+
+from app.api.process import get_analysis_provider
+from app.integrations.a_base import AnalysisProvider
+from app.integrations.a_http import HttpAnalysisProvider
 
 router = APIRouter(prefix="/api/v1", tags=["system"])
 
@@ -15,16 +19,17 @@ class Capabilities(TypedDict):
 class SystemStatus(TypedDict):
     backend: str
     a_adapter: str
+    a_ready: NotRequired[bool]
     c_adapter: str
     capabilities: Capabilities
 
 
 @router.get("/system/status")
-def get_system_status() -> SystemStatus:
-    """B와 아직 연결되지 않은 A/C 기능 상태를 반환한다."""
-    return {
+def get_system_status(provider: AnalysisProvider = Depends(get_analysis_provider)) -> SystemStatus:
+    live = isinstance(provider, HttpAnalysisProvider)
+    result: SystemStatus = {
         "backend": "ok",
-        "a_adapter": "mock",
+        "a_adapter": "live" if live else "mock",
         "c_adapter": "mock",
         "capabilities": {
             "prediction": True,
@@ -33,3 +38,6 @@ def get_system_status() -> SystemStatus:
             "unity_control": True,
         },
     }
+    if live:
+        result["a_ready"] = provider.ready()
+    return result

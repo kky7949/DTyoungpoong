@@ -1,116 +1,74 @@
-# Youngpoong Digital Twin - B 파트 MVP
+# 금속 회수율 최적화 대시보드
 
-React + TypeScript HMI와 FastAPI 백엔드가 실제 HTTP로 통신하는 실행 가능한 최소 버전이다. 아직 확정되지 않은 A(AI)와 C(Unity) 연동은 **모의 데이터(Mock Data)** 어댑터로 분리되어 있다.
+한림대학교 2026학년도 2학기 소프트웨어캡스톤디자인 **영풍그룹 금속 회수율 최적화 디지털 트윈** 프로젝트의 웹·서버 모듈입니다. 폐배터리 습식제련 원료를 입력해 니켈(Ni)과 코발트(Co)의 회수율을 예측하고, 선택한 공정 조건을 Unity 가상 공장에 전달합니다.
 
-## 현재 가능한 기능
-
-- 공정 조건 입력 및 결측값 `null` 전송
-- 현재 회수율 예측과 추천 공정 조건 표시(모의 데이터)
-- 추천 조건을 Unity 명령 큐에 등록
-- Mock Unity 또는 실제 Unity가 명령을 조회하고 상태를 보고하는 흐름
-- A/C/XAI 지원 상태와 모의 데이터 여부 표시
-- React 개발 서버와 FastAPI를 나눠 실행하거나, 빌드 후 `8000`번 한 주소로 실행
-
-## 핵심 개념
-
-- **React**: 브라우저 화면과 버튼·입력 상태를 담당한다.
-- **FastAPI**: 화면의 요청을 검증하고 A/C 사이의 데이터를 중계한다.
-- **REST/JSON**: 두 프로그램이 HTTP 주소와 구조화된 데이터로 통신하는 방식이다.
-- **CORS**: 개발 중 서로 다른 포트(`5173`, `8000`)의 통신을 브라우저가 허용하도록 하는 설정이다.
-
-## 준비물
-
-- Windows PowerShell
-- Python 3.11 이상
-- Node.js 24 LTS 권장
-
-아래 명령은 저장소 루트의 `Server` 폴더에서 실행한다.
-
-```powershell
-cd Server
+```text
+A 분석 API ← HTTP → B FastAPI · React 대시보드 ← HTTP → C Unity 가상 공장
 ```
 
-## 최초 설치
+- **원료 입력과 추천** — 원료 성분·투입량을 입력하고, 니켈 최대·코발트 최대·동시 회수율 목표를 선택합니다.
+- **회수율 비교** — AI 추천 조건이나 직접 입력한 조건의 예상 회수율을 비교합니다.
+- **가상 공장 적용** — 원료, 최종 공정 조건, 예상 회수율을 Unity 명령으로 보내고 진행률을 확인합니다. 적용 기록은 현재 브라우저에 저장됩니다.
 
-### 1. 백엔드
+## 실행
+
+Windows PowerShell에서 아래 명령을 사용합니다. 확인한 환경은 Python 3.15와 Node.js 24입니다. 각 명령 블록은 저장소 루트에서 시작합니다.
+
+### 1. 설치 및 화면 빌드
 
 ```powershell
-py -m venv backend\.venv
-backend\.venv\Scripts\python -m pip install -r backend\requirements.txt
+py -m venv Server\backend\.venv
+.\Server\backend\.venv\Scripts\python.exe -m pip install -r Server\backend\requirements.txt
+npm.cmd --prefix Server\frontend ci
+npm.cmd --prefix Server\frontend run build
 ```
 
-### 2. 프런트엔드
-
-```powershell
-npm --prefix frontend ci
-```
-
-## 개발 모드 실행
-
-PowerShell 창 1에서 FastAPI를 실행한다.
+### 2. 모의 분석으로 시작
 
 ```powershell
 cd Server\backend
-.\.venv\Scripts\python -m uvicorn app.main:app --reload --port 8000
+$env:A_ADAPTER = 'mock'
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
-PowerShell 창 2에서 React 개발 서버를 실행한다.
+브라우저에서 [대시보드](http://127.0.0.1:8000/)를 엽니다. 아래 명령을 별도 PowerShell에서 실행하면 Unity 없이 명령 등록과 진행·완료 보고 흐름을 확인할 수 있습니다.
 
 ```powershell
-cd Server
-npm --prefix frontend run dev
+powershell.exe -ExecutionPolicy Bypass -File .\Server\scripts\mock-unity.ps1
 ```
 
-브라우저에서 `http://localhost:5173`에 접속한다. Vite가 `/health`와 `/api` 요청을 FastAPI `8000`번 포트로 전달한다.
+원료 입력 → **최적 공정 추천** → **추천값 적용하기** → **가상 공장에 적용** 순서로 시연할 수 있습니다. 추천 조건을 수정했다면 **회수율 예측**을 다시 실행합니다. 모의 분석은 고정 예시값을 반환하며, Mock Unity는 HTTP 보고를 대신합니다.
 
-## 한 주소로 실행
+### 3. 실제 A 또는 Unity 연결
 
-프런트엔드를 먼저 빌드한 후 FastAPI를 시작한다.
+실제 A를 사용하려면 아래 명령으로 B를 실행합니다. 예시 주소를 팀의 A 서버 주소로 바꾸고, A의 `GET /health`에서 `model_ready: true`가 반환되는지 확인합니다.
 
 ```powershell
-cd Server
-npm --prefix frontend run build
-cd backend
-.\.venv\Scripts\python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+cd Server\backend
+$env:A_ADAPTER = 'live'
+$env:A_API_BASE_URL = 'http://<A 서버 주소>:<포트>'
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
-PC에서는 `http://localhost:8000`으로 접속한다. 같은 신뢰된 Wi-Fi의 태블릿은 `http://<PC의 IPv4 주소>:8000`으로 접속할 수 있다. Windows 방화벽 창이 나타나면 **개인 네트워크에서만** 허용한다. 학교 또는 공용망에 인증 없이 공개하지 않는다.
+- 실제 A에서는 원료 성분 7개와 투입량이 필수입니다. 필드별 허용 범위는 대시보드에서 확인할 수 있습니다. 추천과 직접 예측의 입력·응답은 [API 계약](docs/api-contract-draft.md#실제-a-분석-공급자)을 참고합니다.
+- Unity가 다른 PC에서 실행된다면 B의 `--host`를 `0.0.0.0`으로 바꾸고, 같은 팀 네트워크의 Unity에서 B의 IPv4 주소와 포트를 입력합니다. 실제 Unity가 명령을 받을 때는 Mock Unity를 종료합니다. 연결 방법은 [Unity 연동 예제 안내](integration/unity/README.md)를 참고합니다.
+- [백엔드 설정 예시](backend/.env.example)와 [프런트 설정 예시](frontend/.env.example)의 값은 필요한 환경에서 설정합니다. 백엔드는 `.env.example`을 자동으로 읽지 않습니다.
 
-## Mock Unity 실행
-
-FastAPI가 실행 중인 상태에서 별도 PowerShell 창을 연다.
+## 검증
 
 ```powershell
-cd Server
-powershell -ExecutionPolicy Bypass -File .\scripts\mock-unity.ps1
+.\Server\backend\.venv\Scripts\python.exe -m pytest Server\backend\tests -q -p no:cacheprovider
+npm.cmd --prefix Server\frontend run test -- --run
+npm.cmd --prefix Server\frontend run lint
+npm.cmd --prefix Server\frontend run build
 ```
 
-HMI에서 분석 후 `가상 공장에 적용`을 누르면 스크립트가 명령을 가져가 `running`, `completed` 상태를 보고한다. 이 스크립트는 Unity가 사용할 HTTP 흐름을 대신 시험할 뿐 실제 시뮬레이션은 수행하지 않는다.
+B 서버 실행 중 [API 문서](http://127.0.0.1:8000/docs)에서 요청 스키마를 확인할 수 있습니다. [시스템 구조](docs/architecture.md)와 [API 계약](docs/api-contract-draft.md)에 구성과 요청·응답 예시를 정리했습니다.
 
-## 테스트와 빌드
+| 대상 | 검증 범위 |
+| --- | --- |
+| B와 A | 실제 A 서버의 예측·추천을 B에서 호출하고 대표 입력의 결과를 대조했습니다. |
+| B와 Unity | B의 명령·상태 API를 테스트했습니다. [Unity C# 코드](integration/unity/README.md)는 연동 **예제**입니다. |
+| Unity 데이터 계약 | [`Verification/`](integration/unity/Verification/)은 B의 명령 JSON을 C# 모델이 읽는지 확인하는 **독립 .NET 검증 도구**입니다. 실제 Unity 씬과 시뮬레이션은 C 프로젝트에서 별도로 확인해야 합니다. |
 
-```powershell
-cd Server
-backend\.venv\Scripts\python -m pytest backend\tests -v
-npm --prefix frontend test -- --run
-npm --prefix frontend run lint
-npm --prefix frontend run build
-```
-
-API 문서는 서버 실행 중 `http://localhost:8000/docs`에서 확인할 수 있다.
-
-## 환경변수
-
-- `FRONTEND_ORIGINS`: 개발용 React 주소를 쉼표로 구분한다. 기본값은 `localhost:5173`, `127.0.0.1:5173`이다.
-- `VITE_API_BASE_URL`: 프런트가 다른 PC의 FastAPI를 직접 호출할 때만 설정한다. 기본은 같은 주소이며 개발 중에는 Vite 프록시가 동작한다.
-
-예시는 `backend/.env.example`, `frontend/.env.example`에 있으며 실제 비밀값은 커밋하지 않는다.
-
-## 현재 한계
-
-- A의 실제 모델과 Unity 프로젝트는 아직 연결되지 않았다.
-- 공정 필드와 단위는 A/C 담당자와 확정 전인 초안이다.
-- 명령과 상태는 메모리에 저장되어 FastAPI 재시작 시 사라진다.
-- XAI는 형식이 확정된 뒤 추가할 선택 기능이며 현재 가짜 설명을 만들지 않는다.
-
-자세한 구조는 `docs/architecture.md`, 임시 API는 `docs/api-contract-draft.md`, 팀 확인사항은 `docs/open-questions.md`를 참고한다.
+B의 작업 명령과 상태는 메모리에 저장됩니다. 서버를 재시작하면 초기화됩니다. 대기·실행 중에는 한 번에 한 공정만 허용합니다.

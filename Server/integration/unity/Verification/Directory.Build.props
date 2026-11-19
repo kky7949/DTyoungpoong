@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)../../../.tools/unity-dto-check/obj/</BaseIntermediateOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)../../../.tools/unity-dto-check/bin/</OutputPath>
+  </PropertyGroup>
+</Project>

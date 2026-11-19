@@ -24,7 +24,7 @@ Build and verify a working B component for the capstone: a React + TypeScript HM
 3. Implement one testable increment at a time; keep changes scoped and explain the affected files.
 4. Run the appropriate checks (e.g. frontend typecheck/build, backend tests, API smoke test) and fix failures attributable to the change.
 5. Report: files changed, features implemented, exact commands executed, verified results, unresolved issues, and the next recommended step.
-6. Update `README.md` with Windows-friendly setup/run commands and `docs/progress.md` with completed/pending work.
+6. Keep `README.md` current with Windows-friendly setup/run commands. Store personal work logs and intermediate materials under the ignored `.tmp/` directory.
 
 ## Suggested first milestone
 Deliver a minimal end-to-end runnable slice:

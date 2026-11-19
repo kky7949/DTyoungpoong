@@ -24,13 +24,28 @@ class ErrorResponse(BaseModel):
 
 
 class AnalysisAdapterError(RuntimeError):
-    """A 분석 어댑터 호출에 실패했음을 나타낸다."""
+    def __init__(
+        self,
+        status_code: int = 502,
+        code: str = "A_ADAPTER_ERROR",
+        message: str = "예측 및 최적화 처리에 실패했습니다.",
+        details: list[ErrorDetail] | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.status_code = status_code
+        self.content = ErrorContent(code=code, message=message, details=details or [])
 
 
 FIELD_LABELS = {
+    "material.name": "원료 이름",
     "material.grade": "원료 등급",
     "material.ni_content_pct": "원료 내 니켈 함량(%)",
     "material.co_content_pct": "원료 내 코발트 함량(%)",
+    "material.li_content_pct": "원료 내 리튬 함량(%)",
+    "material.mn_content_pct": "원료 내 망간 함량(%)",
+    "material.cu_content_pct": "원료 내 구리 불순물 함량(%)",
+    "material.fe_content_pct": "원료 내 철 불순물 함량(%)",
+    "material.al_content_pct": "원료 내 알루미늄 불순물 함량(%)",
     "current_process.feed_amount_kg": "원료 투입량(kg)",
     "current_process.sulfuric_acid_l": "황산 투입량(L)",
     "current_process.leaching_temperature_c": "침출 온도(°C)",
@@ -48,6 +63,11 @@ def _validation_detail(error: dict[str, Any]) -> ErrorDetail:
     if error["type"] in {"greater_than_equal", "less_than_equal"} and field in {
         "material.ni_content_pct",
         "material.co_content_pct",
+        "material.li_content_pct",
+        "material.mn_content_pct",
+        "material.cu_content_pct",
+        "material.fe_content_pct",
+        "material.al_content_pct",
     }:
         message = f"{label}은 0~100 범위여야 합니다."
     else:
@@ -75,11 +95,7 @@ async def analysis_adapter_exception_handler(
     exc: AnalysisAdapterError,
 ) -> JSONResponse:
     response = ErrorResponse(
-        error=ErrorContent(
-            code="A_ADAPTER_ERROR",
-            message="예측 및 최적화 처리에 실패했습니다.",
-            details=[],
-        ),
+        error=exc.content,
         request_id=_request_id(request),
     )
-    return JSONResponse(status_code=502, content=response.model_dump(mode="json"))
+    return JSONResponse(status_code=exc.status_code, content=response.model_dump(mode="json"))

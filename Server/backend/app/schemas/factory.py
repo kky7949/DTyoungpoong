@@ -3,7 +3,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-from app.schemas.process import RecommendedProcessConditions
+from app.schemas.process import MaterialComposition, RecommendedProcessConditions, RecoveryPrediction
 
 FactoryState = Literal[
     "disconnected",
@@ -15,9 +15,16 @@ FactoryState = Literal[
 ]
 
 
+class FactoryMaterial(MaterialComposition):
+    name: str | None = Field(default=None, description="Unity 표시용 원료 이름, 미입력은 null")
+    feed_amount_kg: float | None = Field(default=None, ge=0, allow_inf_nan=False, description="Unity 표시용 원료 투입량(kg), 미입력은 null")
+
+
 class ApplyFactoryRequest(BaseModel):
     analysis_request_id: str = Field(description="분석 요청 식별자")
+    material: FactoryMaterial
     process_conditions: RecommendedProcessConditions
+    expected_recovery: RecoveryPrediction
 
 
 class ApplyFactoryResponse(BaseModel):
@@ -29,7 +36,9 @@ class ApplyFactoryResponse(BaseModel):
 class FactoryCommand(BaseModel):
     command_id: str
     command: Literal["apply_and_start"]
+    material: FactoryMaterial
     process_conditions: RecommendedProcessConditions
+    expected_recovery: RecoveryPrediction
 
 
 class FactoryStatusUpdate(BaseModel):
@@ -46,3 +55,5 @@ class FactoryStateResponse(BaseModel):
     progress_pct: float = Field(ge=0, le=100)
     message: str
     updated_at: datetime
+    connection_status: Literal["connected", "disconnected"] = "disconnected"
+    last_seen_at: datetime | None = None

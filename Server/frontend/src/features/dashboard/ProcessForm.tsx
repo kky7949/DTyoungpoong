@@ -1,97 +1,53 @@
-import { useState, type FormEvent } from 'react'
-
-import type { AnalyzeRequest } from '../../api/types'
+import { InputIssue } from './InputIssue'
+import { materialFields, type FieldErrors, type ProcessInput } from './processInput'
+import type { RecommendationMode } from '../../api/types'
 
 interface Props {
-  loading: boolean
-  onSubmit: (payload: AnalyzeRequest) => void
+  locked: boolean
+  values: ProcessInput
+  fieldErrors: FieldErrors
+  onChange: (key: keyof ProcessInput, value: string) => void
+  onRecommend: () => void
+  busy: boolean
+  recommending: boolean
+  recommendationMode: RecommendationMode
+  recommendationModeEnabled: boolean
+  onModeChange: (mode: RecommendationMode) => void
 }
-
-type FieldName =
-  | 'ni_content_pct'
-  | 'co_content_pct'
-  | 'feed_amount_kg'
-  | 'sulfuric_acid_l'
-  | 'leaching_temperature_c'
-  | 'leaching_time_hr'
-
-const initialValues: Record<FieldName, string> = {
-  ni_content_pct: '12.17',
-  co_content_pct: '2.41',
-  feed_amount_kg: '1000',
-  sulfuric_acid_l: '980',
-  leaching_temperature_c: '58',
-  leaching_time_hr: '5',
-}
-
-function nullableNumber(value: string): number | null {
-  return value.trim() === '' ? null : Number(value)
-}
-
-export function ProcessForm({ loading, onSubmit }: Props) {
-  const [grade, setGrade] = useState('혼합 원료 A')
-  const [values, setValues] = useState(initialValues)
-
-  function update(name: FieldName, value: string) {
-    setValues((current) => ({ ...current, [name]: value }))
-  }
-
-  function submit(event: FormEvent) {
-    event.preventDefault()
-    onSubmit({
-      material: {
-        grade: grade.trim() || null,
-        ni_content_pct: nullableNumber(values.ni_content_pct),
-        co_content_pct: nullableNumber(values.co_content_pct),
-      },
-      current_process: {
-        feed_amount_kg: nullableNumber(values.feed_amount_kg),
-        sulfuric_acid_l: nullableNumber(values.sulfuric_acid_l),
-        leaching_temperature_c: nullableNumber(values.leaching_temperature_c),
-        leaching_time_hr: nullableNumber(values.leaching_time_hr),
-      },
-    })
-  }
-
-  const fields: Array<{ name: FieldName; label: string; step?: string }> = [
-    { name: 'ni_content_pct', label: '니켈 함량 (%)', step: '0.01' },
-    { name: 'co_content_pct', label: '코발트 함량 (%)', step: '0.01' },
-    { name: 'feed_amount_kg', label: '원료 투입량 (kg)', step: '0.1' },
-    { name: 'sulfuric_acid_l', label: '황산 투입량 (L)', step: '0.1' },
-    { name: 'leaching_temperature_c', label: '침출 온도 (°C)', step: '0.1' },
-    { name: 'leaching_time_hr', label: '침출 시간 (시간)', step: '0.1' },
-  ]
-
-  return (
-    <form className="panel process-form" onSubmit={submit}>
-      <div className="panel-heading">
-        <div>
-          <p className="eyebrow">PROCESS INPUT</p>
-          <h2>현재 공정 조건</h2>
+export function ProcessForm({ locked, values, fieldErrors, onChange, onRecommend, busy, recommending, recommendationMode, recommendationModeEnabled, onModeChange }: Props) {
+  return <section className="panel process-form" aria-labelledby="material-heading">
+    <div className="panel-heading"><div><p className="eyebrow">RAW MATERIAL</p><h2 id="material-heading">원료 조건</h2></div></div>
+    <label>원료 이름<input id="material-name" value={values.name} disabled={locked} onChange={(event) => onChange('name', event.target.value)} /></label>
+    <div className="field-grid">
+      {materialFields.map(({ key, label, min, max }) => {
+        const id = `material-${key}`
+        const range = `${min}~${max}`
+        const issue = fieldErrors[key]
+        return <div key={key} className="material-field">
+          <label htmlFor={id}>{label}</label>
+          <div className="numeric-field">
+            <input id={id} type="number" step="any" value={values[key]} placeholder={range} disabled={locked}
+              aria-invalid={issue ? true : undefined} aria-describedby={issue ? `${id}-error` : `${id}-range`}
+              onChange={(event) => onChange(key, event.target.value)} />
+            {issue && <InputIssue id={`${id}-error`} label={label} message={issue} />}
+            <span className="sr-only" id={`${id}-range`}>{range}</span>
+          </div>
         </div>
-        <span className="draft-badge">임시 명세</span>
-      </div>
-      <label>
-        원료 등급
-        <input value={grade} onChange={(event) => setGrade(event.target.value)} />
-      </label>
-      <div className="field-grid">
-        {fields.map((field) => (
-          <label key={field.name}>
-            {field.label}
-            <input
-              type="number"
-              step={field.step}
-              value={values[field.name]}
-              onChange={(event) => update(field.name, event.target.value)}
-            />
-          </label>
-        ))}
-      </div>
-      <p className="helper-text">빈 값은 null로 전송하며, A 파트에서 결측값을 보정합니다.</p>
-      <button className="primary-button" type="submit" disabled={loading}>
-        {loading ? '분석 중...' : '예측 및 최적화 실행'}
-      </button>
-    </form>
-  )
+      })}
+    </div>
+    <label className="recommendation-goal">
+      <span id="recommendation-mode-label">추천 목표</span>
+      <select aria-labelledby="recommendation-mode-label" aria-describedby={recommendationModeEnabled ? 'live-material-requirements' : undefined}
+        value={recommendationMode} disabled={!recommendationModeEnabled || locked || busy}
+        onChange={(event) => onModeChange(event.target.value as RecommendationMode)}>
+        <option value="joint">동시 회수율 최대</option>
+        <option value="ni">니켈 회수율 최대</option>
+        <option value="co">코발트 회수율 최대</option>
+      </select>
+      <small id="live-material-requirements" style={{ visibility: recommendationModeEnabled ? 'visible' : 'hidden' }}>
+        성분 7개와 투입량을 모두 입력해 주세요.
+      </small>
+    </label>
+    <button className="primary-button recommend-button" type="button" onClick={onRecommend} disabled={locked || busy}>{recommending ? '추천 중...' : '최적 공정 추천'}</button>
+  </section>
 }

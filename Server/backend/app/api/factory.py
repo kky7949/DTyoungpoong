@@ -11,7 +11,7 @@ from app.schemas.factory import (
     FactoryStateResponse,
     FactoryStatusUpdate,
 )
-from app.services.factory_store import FactoryStore, UnknownFactoryCommand
+from app.services.factory_store import FactoryConflict, FactoryStore, UnknownFactoryCommand
 
 router = APIRouter(prefix="/api/v1/factory", tags=["factory"])
 _factory_store = FactoryStore()
@@ -69,3 +69,11 @@ async def unknown_factory_command_handler(
         request_id=request_id,
     )
     return JSONResponse(status_code=400, content=response.model_dump(mode="json"))
+
+
+async def factory_conflict_handler(request: Request, exc: FactoryConflict) -> JSONResponse:
+    response = ErrorResponse(
+        error=ErrorContent(code=exc.code, message=str(exc), details=[]),
+        request_id=request.headers.get("X-Request-ID") or str(uuid4()),
+    )
+    return JSONResponse(status_code=409, content=response.model_dump(mode="json"))

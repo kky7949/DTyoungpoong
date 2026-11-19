@@ -3,6 +3,7 @@
     "data_type": "mock",
     "description_ko": "A 파트 연동 전 화면 및 API 시험용 모의 데이터",
     "field_labels_ko": {
+      "material_grade": "원료 등급(단위 없음, 판정 기준 미확정으로 null)",
       "ni_recovery_pct": "니켈 회수율 예측값(%)",
       "co_recovery_pct": "코발트 회수율 예측값(%)",
       "sulfuric_acid_l": "추천 황산 투입량(L)",
@@ -12,6 +13,7 @@
   },
   "schema_version": "draft-1",
   "source": "mock",
+  "material_grade": null,
   "current_prediction": {
     "ni_recovery_pct": 85.65,
     "co_recovery_pct": 78.45

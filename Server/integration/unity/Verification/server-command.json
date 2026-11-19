@@ -1,0 +1,24 @@
+{
+  "command_id": "contract-check",
+  "command": "apply_and_start",
+  "material": {
+    "name": null,
+    "feed_amount_kg": null,
+    "ni_content_pct": 12.17,
+    "co_content_pct": 2.41,
+    "li_content_pct": 0,
+    "mn_content_pct": 10.49,
+    "cu_content_pct": 1.9,
+    "fe_content_pct": null,
+    "al_content_pct": 3.43
+  },
+  "process_conditions": {
+    "sulfuric_acid_l": 900.5,
+    "leaching_temperature_c": 60.0,
+    "leaching_time_hr": 4.5
+  },
+  "expected_recovery": {
+    "ni_recovery_pct": 88.8,
+    "co_recovery_pct": 79.5
+  }
+}

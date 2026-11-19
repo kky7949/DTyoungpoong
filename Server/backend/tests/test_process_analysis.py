@@ -84,6 +84,81 @@ class CapturingProvider:
         return analysis_response_payload()
 
 
+ADDITIONAL_CONTENT_FIELDS = {
+    "li_content_pct": ("리튬 함량", 4.25),
+    "mn_content_pct": ("망간 함량", 10.49),
+    "cu_content_pct": ("구리 불순물 함량", 1.9),
+    "fe_content_pct": ("철 불순물 함량", 2.04),
+    "al_content_pct": ("알루미늄 불순물 함량", 3.43),
+}
+
+
+@pytest.mark.anyio
+async def test_recommendation_accepts_material_without_process_settings() -> None:
+    provider = CapturingProvider()
+    app.dependency_overrides[get_analysis_provider] = lambda: provider
+    try:
+        response = await post_analysis({
+            "material": {"name": "원료 1", "ni_content_pct": 12.17, "co_content_pct": 6.98},
+            "current_process": {
+                "feed_amount_kg": 159.1,
+                "sulfuric_acid_l": None,
+                "leaching_temperature_c": None,
+                "leaching_time_hr": None,
+            },
+        })
+    finally:
+        app.dependency_overrides.clear()
+    assert response.status_code == 200
+    assert response.json()["recommendation"]["process_conditions"]["sulfuric_acid_l"] == 1050
+    assert provider.request is not None
+    assert provider.request.current_process.feed_amount_kg == 159.1
+    assert provider.request.current_process.sulfuric_acid_l is None
+    assert provider.request.current_process.leaching_temperature_c is None
+    assert provider.request.current_process.leaching_time_hr is None
+
+
+@pytest.mark.anyio
+async def test_analysis_passes_all_additional_contents_without_imputation() -> None:
+    provider = CapturingProvider()
+    app.dependency_overrides[get_analysis_provider] = lambda: provider
+    contents = {field: value for field, (_, value) in ADDITIONAL_CONTENT_FIELDS.items()}
+    try:
+        for values in (
+            contents,
+            dict.fromkeys(contents),
+            dict.fromkeys(contents, 0),
+            dict.fromkeys(contents, 100),
+            {},
+        ):
+            response = await post_analysis({
+                **VALID_REQUEST,
+                "material": {**VALID_REQUEST["material"], **values},
+            })
+            assert response.status_code == 200
+            assert provider.request is not None
+            for field in contents:
+                assert getattr(provider.request.material, field) == values.get(field)
+    finally:
+        app.dependency_overrides.clear()
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize("field", ADDITIONAL_CONTENT_FIELDS)
+@pytest.mark.parametrize("value", [-0.01, 100.01])
+async def test_analysis_rejects_invalid_additional_content_in_korean(field, value) -> None:
+    response = await post_analysis({
+        **VALID_REQUEST,
+        "material": {**VALID_REQUEST["material"], field: value},
+    })
+    assert response.status_code == 422
+    label = ADDITIONAL_CONTENT_FIELDS[field][0]
+    assert response.json()["error"]["details"] == [{
+        "field": f"material.{field}",
+        "message": f"원료 내 {label}(%)은 0~100 범위여야 합니다.",
+    }]
+
+
 @pytest.mark.anyio
 async def test_analysis_passes_null_content_to_provider_without_imputation() -> None:
     """B가 결측값을 0이나 평균값으로 바꾸면 실패한다."""
@@ -130,6 +205,24 @@ async def test_analysis_rejects_content_above_one_hundred_in_korean() -> None:
 class FailingProvider:
     def analyze(self, request: AnalyzeRequest) -> dict[str, Any]:
         raise RuntimeError("A service unavailable")
+
+
+@pytest.mark.anyio
+async def test_material_name_is_passed_without_treating_it_as_a_grade():
+    provider = CapturingProvider()
+    app.dependency_overrides[get_analysis_provider] = lambda: provider
+    payload = {**VALID_REQUEST, "material": {
+        "name": "원료 1", "ni_content_pct": 12.17, "co_content_pct": 6.98,
+    }}
+    try:
+        response = await post_analysis(payload)
+    finally:
+        app.dependency_overrides.clear()
+    assert response.status_code == 200
+    assert provider.request is not None
+    assert provider.request.material.name == "원료 1"
+    assert provider.request.material.grade is None
+    assert response.json()["material_grade"] is None
 
 
 @pytest.mark.anyio

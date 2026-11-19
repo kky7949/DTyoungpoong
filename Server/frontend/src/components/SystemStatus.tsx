@@ -1,28 +1,21 @@
-import type { SystemStatus as SystemStatusData } from '../api/types'
+import type { FactoryState, SystemStatus as SystemStatusData } from '../api/types'
 
 interface Props {
   status: SystemStatusData | null
   failed: boolean
+  factoryState: FactoryState | null
+  factoryFailed: boolean
 }
 
-function adapterLabel(part: 'A' | 'C', mode: 'mock' | 'live'): string {
-  return `${part} ${mode === 'mock' ? '모의 데이터' : '실시간 연결'}`
-}
-
-export function SystemStatus({ status, failed }: Props) {
-  if (failed) {
-    return <div className="connection-error">B 서버에 연결할 수 없습니다.</div>
-  }
-  if (!status) return <div className="status-loading">서버 연결 확인 중...</div>
-
+export function SystemStatus({ status, failed, factoryState, factoryFailed }: Props) {
+  const unityConnected = !failed && !factoryFailed && factoryState?.connection_status === 'connected'
+  const aReady = !failed && status?.a_adapter === 'live' && status.a_ready === true
+  const bConnected = !failed && status !== null
   return (
     <div className="status-strip" aria-label="연동 상태">
-      <span className="status-chip ok">B 서버 정상</span>
-      <span className={`status-chip ${status.a_adapter}`}>{adapterLabel('A', status.a_adapter)}</span>
-      <span className={`status-chip ${status.c_adapter}`}>{adapterLabel('C', status.c_adapter)}</span>
-      <span className={`status-chip ${status.capabilities.xai ? 'ok' : 'muted'}`}>
-        XAI {status.capabilities.xai ? '지원' : '미지원'}
-      </span>
+      <span className={`status-chip ${aReady ? 'ok' : 'muted'}`}>A {aReady ? '연결' : '미연결'}</span>
+      <span className={`status-chip ${failed ? 'failed' : bConnected ? 'ok' : 'muted'}`}>B {bConnected ? '연결' : '미연결'}</span>
+      <span className={`status-chip ${unityConnected ? 'ok' : 'muted'}`}>C {unityConnected ? '연결' : '미연결'}</span>
     </div>
   )
 }

@@ -4,8 +4,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 
-class MaterialInput(BaseModel):
-    grade: str | None = Field(default=None, description="원료 등급")
+class MaterialComposition(BaseModel):
     ni_content_pct: float | None = Field(
         default=None,
         ge=0,
@@ -18,6 +17,26 @@ class MaterialInput(BaseModel):
         le=100,
         description="원료 내 코발트 함량(%)",
     )
+    li_content_pct: float | None = Field(
+        default=None, ge=0, le=100, description="원료 내 리튬 함량(%)",
+    )
+    mn_content_pct: float | None = Field(
+        default=None, ge=0, le=100, description="원료 내 망간 함량(%)",
+    )
+    cu_content_pct: float | None = Field(
+        default=None, ge=0, le=100, description="원료 내 구리 불순물 함량(%)",
+    )
+    fe_content_pct: float | None = Field(
+        default=None, ge=0, le=100, description="원료 내 철 불순물 함량(%)",
+    )
+    al_content_pct: float | None = Field(
+        default=None, ge=0, le=100, description="원료 내 알루미늄 불순물 함량(%)",
+    )
+
+
+class MaterialInput(MaterialComposition):
+    name: str | None = Field(default=None, description="사용자가 입력한 원료 이름")
+    grade: str | None = Field(default=None, description="이전 클라이언트 호환용 원료 등급 입력. 새 HMI에서는 사용하지 않음")
 
 
 class ProcessConditions(BaseModel):
@@ -42,9 +61,14 @@ class ProcessConditions(BaseModel):
     )
 
 
+class RecommendationOptions(BaseModel):
+    mode: Literal["joint", "ni", "co"] = "joint"
+
+
 class AnalyzeRequest(BaseModel):
     material: MaterialInput
     current_process: ProcessConditions
+    options: RecommendationOptions | None = None
 
 
 class RecoveryPrediction(BaseModel):
@@ -68,5 +92,11 @@ class AnalyzeResponse(BaseModel):
     source: Literal["mock", "live"]
     generated_at: datetime
     request_id: str
-    current_prediction: RecoveryPrediction
-    recommendation: Recommendation
+    material_grade: str | None = Field(default=None, description="A가 Ni/Co 함량 등 확정 기준으로 판정한 원료 등급. 미판정이면 null (DRAFT)")
+    current_prediction: RecoveryPrediction | None
+    recommendation: Recommendation | None
+    model_version: str | None = None
+    status: str | None = None
+    mode: Literal["joint", "ni", "co"] | None = None
+    warnings: list[str] = Field(default_factory=list)
+    closest_alternative: Recommendation | None = None
