@@ -1,0 +1,162 @@
+{
+  "development_rows": 357,
+  "development_first_batch": "BP-2025-0001",
+  "development_last_batch": "BP-2025-0357",
+  "development_sha256": "90e956aabf5721a94922bbeb48f4b4073eb718d41dfbf04f36cd4bedc5e57afc",
+  "holdout_rows_excluded": 63,
+  "holdout_used_for_fit_tune_predict_or_score": false,
+  "outer_splits": [
+    {
+      "fold": 1,
+      "train_rows": 90,
+      "valid_rows": 89
+    },
+    {
+      "fold": 2,
+      "train_rows": 179,
+      "valid_rows": 89
+    },
+    {
+      "fold": 3,
+      "train_rows": 268,
+      "valid_rows": 89
+    }
+  ],
+  "inner_splits": 3,
+  "ordering": "Numeric batch-ID suffix; calendar-time order has not been independently verified.",
+  "alpha_grid": [
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "tuning_metric": "pooled validation MAE in original recovery percentage points",
+  "imputation": "Original grade-conditional chemical medians when training count >= 5; training global median fallback; process training global medians.",
+  "imputation_and_scaling_fit_scope": "each individual inner or outer training slice only",
+  "bounded_target": "logit(y/100); eps=1e-5 at exact 0/100 endpoints; inverse=100*sigmoid",
+  "baseline_Ni_members": [
+    {
+      "estimator": "ElasticNet",
+      "mode": "A",
+      "alpha": 0.1,
+      "l1_ratio": 0.8,
+      "max_iter": 20000,
+      "random_state": 42
+    },
+    {
+      "estimator": "Ridge",
+      "mode": "B_Impurity",
+      "alpha": 1.0
+    },
+    {
+      "estimator": "SVR",
+      "mode": "B_Impurity",
+      "C": 10.0,
+      "epsilon": 0.1,
+      "gamma": "scale",
+      "kernel": "rbf"
+    }
+  ],
+  "baseline_Ni_weights": [
+    0.3366978614608818,
+    0.3365960332725443,
+    0.326706105266574
+  ],
+  "baseline_Co": {
+    "estimator": "Ridge",
+    "mode": "A",
+    "alpha": 0.1
+  },
+  "candidates": [
+    "baseline",
+    "ridge11",
+    "curve17",
+    "bounded17",
+    "interaction20"
+  ],
+  "selection_excludes": [
+    "different answers between recommendation modes",
+    "predicted target success count"
+  ],
+  "scope": "Reproduction on previously reused development data; no new independent validation or plant approval.",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0",
+    "openpyxl": "3.1.5",
+    "matplotlib": "3.10.8"
+  },
+  "model_version": "YP-curve17-dev357-v2",
+  "selected_alphas": {
+    "Ni": 0.1,
+    "Co": 0.1
+  },
+  "fit_rows": 357,
+  "pipeline_fit_count": 26,
+  "distance_reference_rows": 151,
+  "distance_threshold": 2.5723353828751074,
+  "comparison": {
+    "status": "within_numeric_tolerance",
+    "absolute_tolerance": 1e-08,
+    "state_max_absolute_differences": {
+      "parameters": 2.3283064365386963e-10,
+      "distance_mean": 2.842170943040401e-14,
+      "distance_scale": 5.684341886080802e-14,
+      "distance_points": 0.0,
+      "distance_threshold": 0.0
+    },
+    "parameter_component_differences": {
+      "Ni": {
+        "mean": 4.547473508864641e-12,
+        "scale": 2.3283064365386963e-10,
+        "coefficient": 9.237055564881302e-14,
+        "intercept": 2.842170943040401e-14
+      },
+      "Co": {
+        "mean": 4.547473508864641e-12,
+        "scale": 2.3283064365386963e-10,
+        "coefficient": 1.936228954946273e-13,
+        "intercept": 2.842170943040401e-14
+      }
+    },
+    "max_state_difference": 2.3283064365386963e-10,
+    "prediction_max_absolute_differences": {
+      "development_imputed357": {
+        "Ni": 7.105427357601002e-14,
+        "Co": 8.526512829121202e-14
+      },
+      "development_raw_complete151": {
+        "Ni": 5.684341886080802e-14,
+        "Co": 8.526512829121202e-14
+      },
+      "synthetic_in_range1000": {
+        "Ni": 8.526512829121202e-14,
+        "Co": 1.2789769243681803e-13
+      }
+    },
+    "max_prediction_difference": 1.2789769243681803e-13,
+    "pipeline_vs_export_max_absolute_difference": 1.4210854715202004e-14,
+    "selected_alphas": {
+      "Ni": 0.1,
+      "Co": 0.1
+    },
+    "frozen_model_sha256": "6184b876c9e8ad233f39fdfe2ce87a2fd26ea043ad7a23e3255d41a352a603b1",
+    "comparison_rows": {
+      "development_imputed357": 357,
+      "development_raw_complete151": 151,
+      "synthetic_in_range1000": 1000
+    },
+    "synthetic_input_note": "Synthetic inputs check only numerical serialization; they are not independent labeled validation.",
+    "interpretation": "Frozen production values are not overwritten. Last-bit differences may depend on numerical library versions and matrix layout."
+  },
+  "files": {
+    "model": "refit_model.json",
+    "tuning": "final_tuning_results.csv",
+    "imputation": "training_fit_audit.json",
+    "comparison": "refit_comparison.json",
+    "summary": "training_summary.json"
+  }
+}

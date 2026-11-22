@@ -1,0 +1,12 @@
+﻿feature,label,unit,source_empty_after_dedup,numeric_coercion_to_missing,out_of_range_to_missing,raw_missing,cleaned_missing,development_missing,holdout_missing,development_imputed
+Ni_함량_pct,Ni content (wt%),wt%,30,0,11,30,41,35,6,35
+Co_함량_pct,Co content (wt%),wt%,31,0,0,31,31,27,4,27
+Li_함량_pct,Li content (wt%),wt%,33,0,5,34,38,36,2,36
+Mn_함량_pct,Mn content (wt%),wt%,25,0,4,25,29,25,4,25
+Cu_불순물_pct,Cu impurity (wt%),wt%,28,0,14,28,42,35,7,35
+Fe_불순물_pct,Fe impurity (wt%),wt%,35,0,10,35,45,39,6,39
+Al_불순물_pct,Al impurity (wt%),wt%,26,0,13,26,39,35,4,35
+원료투입량_kg,Feed (kg),kg,0,0,0,0,0,0,0,0
+황산투입량_L,Sulfuric acid (L),L,0,0,2,0,2,2,0,2
+침출온도_C,Temperature (deg C),deg C,38,0,2,39,40,35,5,35
+침출시간_hr,Time (hr),hr,36,0,2,37,38,34,4,34

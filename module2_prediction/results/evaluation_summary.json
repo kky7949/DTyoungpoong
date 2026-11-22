@@ -1,0 +1,3377 @@
+{
+  "development_rows": 357,
+  "development_first_batch": "BP-2025-0001",
+  "development_last_batch": "BP-2025-0357",
+  "development_sha256": "90e956aabf5721a94922bbeb48f4b4073eb718d41dfbf04f36cd4bedc5e57afc",
+  "holdout_rows_excluded": 63,
+  "holdout_used_for_fit_tune_predict_or_score": false,
+  "outer_splits": [
+    {
+      "fold": 1,
+      "train_rows": 90,
+      "valid_rows": 89
+    },
+    {
+      "fold": 2,
+      "train_rows": 179,
+      "valid_rows": 89
+    },
+    {
+      "fold": 3,
+      "train_rows": 268,
+      "valid_rows": 89
+    }
+  ],
+  "inner_splits": 3,
+  "ordering": "Numeric batch-ID suffix; calendar-time order has not been independently verified.",
+  "alpha_grid": [
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "tuning_metric": "pooled validation MAE in original recovery percentage points",
+  "imputation": "Original grade-conditional chemical medians when training count >= 5; training global median fallback; process training global medians.",
+  "imputation_and_scaling_fit_scope": "each individual inner or outer training slice only",
+  "bounded_target": "logit(y/100); eps=1e-5 at exact 0/100 endpoints; inverse=100*sigmoid",
+  "baseline_Ni_members": [
+    {
+      "estimator": "ElasticNet",
+      "mode": "A",
+      "alpha": 0.1,
+      "l1_ratio": 0.8,
+      "max_iter": 20000,
+      "random_state": 42
+    },
+    {
+      "estimator": "Ridge",
+      "mode": "B_Impurity",
+      "alpha": 1.0
+    },
+    {
+      "estimator": "SVR",
+      "mode": "B_Impurity",
+      "C": 10.0,
+      "epsilon": 0.1,
+      "gamma": "scale",
+      "kernel": "rbf"
+    }
+  ],
+  "baseline_Ni_weights": [
+    0.3366978614608818,
+    0.3365960332725443,
+    0.326706105266574
+  ],
+  "baseline_Co": {
+    "estimator": "Ridge",
+    "mode": "A",
+    "alpha": 0.1
+  },
+  "candidates": [
+    "baseline",
+    "ridge11",
+    "curve17",
+    "bounded17",
+    "interaction20"
+  ],
+  "selection_excludes": [
+    "different answers between recommendation modes",
+    "predicted target success count"
+  ],
+  "scope": "Reproduction on previously reused development data; no new independent validation or plant approval.",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0",
+    "openpyxl": "3.1.5",
+    "matplotlib": "3.10.8"
+  },
+  "pipeline_fit_count": 324,
+  "oof_rows_per_metal_candidate": 267,
+  "oof_predictions_rows": 2670,
+  "metrics": [
+    {
+      "Metal": "Ni",
+      "Candidate": "baseline",
+      "N": 267,
+      "MAE": 1.872870946693454,
+      "RMSE": 2.3288294688614566,
+      "R2": 0.8422888527648129,
+      "P90_abs": 3.6334183226375587,
+      "Max_abs": 6.5450968362276,
+      "Bias": -0.17633180884241845,
+      "InvalidOutputN": 0,
+      "MeanFoldMAE": 1.872870946693454,
+      "StdFoldMAE": 0.038575208623886505,
+      "MeanTrainMAE": 1.3208527420043743,
+      "MeanGap": 0.5520182046890797
+    },
+    {
+      "Metal": "Ni",
+      "Candidate": "ridge11",
+      "N": 267,
+      "MAE": 1.9550636135119916,
+      "RMSE": 2.4050849285223608,
+      "R2": 0.8317915346453832,
+      "P90_abs": 3.946413324279138,
+      "Max_abs": 6.4358244333033525,
+      "Bias": -0.25615779436748615,
+      "InvalidOutputN": 0,
+      "MeanFoldMAE": 1.9550636135119914,
+      "StdFoldMAE": 0.16784409568788242,
+      "MeanTrainMAE": 1.6640649314569769,
+      "MeanGap": 0.2909986820550147
+    },
+    {
+      "Metal": "Ni",
+      "Candidate": "curve17",
+      "N": 267,
+      "MAE": 1.7418810449441298,
+      "RMSE": 2.1965020984042565,
+      "R2": 0.8597023941552833,
+      "P90_abs": 3.566840815615774,
+      "Max_abs": 7.002784528945966,
+      "Bias": -0.18688453122215162,
+      "InvalidOutputN": 0,
+      "MeanFoldMAE": 1.7418810449441298,
+      "StdFoldMAE": 0.08597836027335978,
+      "MeanTrainMAE": 1.4772203503814403,
+      "MeanGap": 0.2646606945626893
+    },
+    {
+      "Metal": "Ni",
+      "Candidate": "bounded17",
+      "N": 267,
+      "MAE": 2.1993016067051503,
+      "RMSE": 2.7422553455784553,
+      "R2": 0.7813231554984236,
+      "P90_abs": 4.379468015194107,
+      "Max_abs": 9.109187425217982,
+      "Bias": 0.1008227658842867,
+      "InvalidOutputN": 0,
+      "MeanFoldMAE": 2.1993016067051503,
+      "StdFoldMAE": 0.09582729332233597,
+      "MeanTrainMAE": 1.8893898430034881,
+      "MeanGap": 0.3099117637016624
+    },
+    {
+      "Metal": "Ni",
+      "Candidate": "interaction20",
+      "N": 267,
+      "MAE": 1.7565100500285848,
+      "RMSE": 2.206909725814526,
+      "R2": 0.8583697074802173,
+      "P90_abs": 3.546972786797153,
+      "Max_abs": 7.058581328288412,
+      "Bias": -0.17337747030411627,
+      "InvalidOutputN": 0,
+      "MeanFoldMAE": 1.756510050028585,
+      "StdFoldMAE": 0.07374285960049116,
+      "MeanTrainMAE": 1.4675355139977064,
+      "MeanGap": 0.28897453603087847
+    },
+    {
+      "Metal": "Co",
+      "Candidate": "baseline",
+      "N": 267,
+      "MAE": 2.079797338027194,
+      "RMSE": 2.685717569196905,
+      "R2": 0.8431406347092831,
+      "P90_abs": 4.505761662066724,
+      "Max_abs": 8.958931119594169,
+      "Bias": 0.1331242015636742,
+      "InvalidOutputN": 0,
+      "MeanFoldMAE": 2.0797973380271944,
+      "StdFoldMAE": 0.09173557070912053,
+      "MeanTrainMAE": 1.9533629040756935,
+      "MeanGap": 0.12643443395150103
+    },
+    {
+      "Metal": "Co",
+      "Candidate": "ridge11",
+      "N": 267,
+      "MAE": 2.079797338027194,
+      "RMSE": 2.685717569196905,
+      "R2": 0.8431406347092831,
+      "P90_abs": 4.505761662066724,
+      "Max_abs": 8.958931119594169,
+      "Bias": 0.1331242015636742,
+      "InvalidOutputN": 0,
+      "MeanFoldMAE": 2.0797973380271944,
+      "StdFoldMAE": 0.09173557070912053,
+      "MeanTrainMAE": 1.9533629040756935,
+      "MeanGap": 0.12643443395150103
+    },
+    {
+      "Metal": "Co",
+      "Candidate": "curve17",
+      "N": 267,
+      "MAE": 1.905236231448467,
+      "RMSE": 2.5194812355344416,
+      "R2": 0.8619577500220302,
+      "P90_abs": 4.366467514326837,
+      "Max_abs": 8.600305704379494,
+      "Bias": 0.20419278164742416,
+      "InvalidOutputN": 0,
+      "MeanFoldMAE": 1.905236231448467,
+      "StdFoldMAE": 0.10550814449817639,
+      "MeanTrainMAE": 1.7492091441744628,
+      "MeanGap": 0.1560270872740043
+    },
+    {
+      "Metal": "Co",
+      "Candidate": "bounded17",
+      "N": 267,
+      "MAE": 2.0018171856813387,
+      "RMSE": 2.620013122227233,
+      "R2": 0.850721691315387,
+      "P90_abs": 4.391809561653901,
+      "Max_abs": 8.309881939667548,
+      "Bias": 0.3905726509294073,
+      "InvalidOutputN": 0,
+      "MeanFoldMAE": 2.001817185681339,
+      "StdFoldMAE": 0.030515150149666936,
+      "MeanTrainMAE": 1.871920161656907,
+      "MeanGap": 0.1298970240244317
+    },
+    {
+      "Metal": "Co",
+      "Candidate": "interaction20",
+      "N": 267,
+      "MAE": 1.9513683235568726,
+      "RMSE": 2.5600557087366242,
+      "R2": 0.8574758023037808,
+      "P90_abs": 4.290823193383036,
+      "Max_abs": 8.352381930599961,
+      "Bias": 0.15353577419963343,
+      "InvalidOutputN": 0,
+      "MeanFoldMAE": 1.9513683235568724,
+      "StdFoldMAE": 0.1083834230391109,
+      "MeanTrainMAE": 1.758740372050999,
+      "MeanGap": 0.19262795150587322
+    }
+  ],
+  "target_classification": [
+    {
+      "population": "all",
+      "target": "Ni",
+      "N": 267,
+      "TP": 3,
+      "FP": 3,
+      "FN": 11,
+      "TN": 250,
+      "predicted_pass": 6,
+      "actual_pass": 14,
+      "precision": 0.5,
+      "recall": 0.21428571428571427,
+      "Ni_threshold": 95,
+      "Co_threshold": 90
+    },
+    {
+      "population": "all",
+      "target": "Co",
+      "N": 267,
+      "TP": 3,
+      "FP": 0,
+      "FN": 2,
+      "TN": 262,
+      "predicted_pass": 3,
+      "actual_pass": 5,
+      "precision": 1.0,
+      "recall": 0.6,
+      "Ni_threshold": 95,
+      "Co_threshold": 90
+    },
+    {
+      "population": "all",
+      "target": "joint",
+      "N": 267,
+      "TP": 1,
+      "FP": 1,
+      "FN": 1,
+      "TN": 264,
+      "predicted_pass": 2,
+      "actual_pass": 2,
+      "precision": 0.5,
+      "recall": 0.5,
+      "Ni_threshold": 95,
+      "Co_threshold": 90
+    },
+    {
+      "population": "complete",
+      "target": "Ni",
+      "N": 113,
+      "TP": 1,
+      "FP": 1,
+      "FN": 5,
+      "TN": 106,
+      "predicted_pass": 2,
+      "actual_pass": 6,
+      "precision": 0.5,
+      "recall": 0.16666666666666666,
+      "Ni_threshold": 95,
+      "Co_threshold": 90
+    },
+    {
+      "population": "complete",
+      "target": "Co",
+      "N": 113,
+      "TP": 1,
+      "FP": 0,
+      "FN": 1,
+      "TN": 111,
+      "predicted_pass": 1,
+      "actual_pass": 2,
+      "precision": 1.0,
+      "recall": 0.5,
+      "Ni_threshold": 95,
+      "Co_threshold": 90
+    },
+    {
+      "population": "complete",
+      "target": "joint",
+      "N": 113,
+      "TP": 0,
+      "FP": 1,
+      "FN": 1,
+      "TN": 111,
+      "predicted_pass": 1,
+      "actual_pass": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "Ni_threshold": 95,
+      "Co_threshold": 90
+    },
+    {
+      "population": "process_complete",
+      "target": "Ni",
+      "N": 213,
+      "TP": 3,
+      "FP": 1,
+      "FN": 10,
+      "TN": 199,
+      "predicted_pass": 4,
+      "actual_pass": 13,
+      "precision": 0.75,
+      "recall": 0.23076923076923078,
+      "Ni_threshold": 95,
+      "Co_threshold": 90
+    },
+    {
+      "population": "process_complete",
+      "target": "Co",
+      "N": 213,
+      "TP": 3,
+      "FP": 0,
+      "FN": 2,
+      "TN": 208,
+      "predicted_pass": 3,
+      "actual_pass": 5,
+      "precision": 1.0,
+      "recall": 0.6,
+      "Ni_threshold": 95,
+      "Co_threshold": 90
+    },
+    {
+      "population": "process_complete",
+      "target": "joint",
+      "N": 213,
+      "TP": 1,
+      "FP": 1,
+      "FN": 1,
+      "TN": 210,
+      "predicted_pass": 2,
+      "actual_pass": 2,
+      "precision": 0.5,
+      "recall": 0.5,
+      "Ni_threshold": 95,
+      "Co_threshold": 90
+    }
+  ],
+  "reproduction": {
+    "status": "within_numeric_tolerance",
+    "absolute_tolerance": 1e-08,
+    "metric_comparisons": 300,
+    "max_absolute_metric_difference": 2.842170943040401e-14,
+    "alpha_mismatches": [],
+    "missing_reference_rows": [],
+    "classification_count_mismatches": [],
+    "classification_reference_rows": 9,
+    "differences": [
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "metric": "MAE",
+        "current": 1.872870946693454,
+        "archived": 1.8728709466934539,
+        "absolute_difference": 2.220446049250313e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "metric": "RMSE",
+        "current": 2.3288294688614566,
+        "archived": 2.3288294688614566,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "metric": "R2",
+        "current": 0.8422888527648129,
+        "archived": 0.8422888527648129,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "metric": "P90_abs",
+        "current": 3.6334183226375587,
+        "archived": 3.6334183226375503,
+        "absolute_difference": 8.43769498715119e-15
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "metric": "Max_abs",
+        "current": 6.5450968362276,
+        "archived": 6.5450968362276,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "metric": "Bias",
+        "current": -0.17633180884241845,
+        "archived": -0.17633180884241761,
+        "absolute_difference": 8.326672684688674e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "metric": "MAE",
+        "current": 1.9550636135119916,
+        "archived": 1.9550636135119916,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "metric": "RMSE",
+        "current": 2.4050849285223608,
+        "archived": 2.4050849285223608,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "metric": "R2",
+        "current": 0.8317915346453832,
+        "archived": 0.8317915346453832,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "metric": "P90_abs",
+        "current": 3.946413324279138,
+        "archived": 3.946413324279138,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "metric": "Max_abs",
+        "current": 6.4358244333033525,
+        "archived": 6.4358244333033525,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "metric": "Bias",
+        "current": -0.25615779436748615,
+        "archived": -0.25615779436748615,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "metric": "MAE",
+        "current": 1.7418810449441298,
+        "archived": 1.7418810449441293,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "metric": "RMSE",
+        "current": 2.1965020984042565,
+        "archived": 2.196502098404257,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "metric": "R2",
+        "current": 0.8597023941552833,
+        "archived": 0.8597023941552833,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "metric": "P90_abs",
+        "current": 3.566840815615774,
+        "archived": 3.5668408156157656,
+        "absolute_difference": 8.43769498715119e-15
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "metric": "Max_abs",
+        "current": 7.002784528945966,
+        "archived": 7.002784528945966,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "metric": "Bias",
+        "current": -0.18688453122215162,
+        "archived": -0.18688453122215198,
+        "absolute_difference": 3.608224830031759e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "metric": "MAE",
+        "current": 2.1993016067051503,
+        "archived": 2.199301606705151,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "metric": "RMSE",
+        "current": 2.7422553455784553,
+        "archived": 2.7422553455784553,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "metric": "R2",
+        "current": 0.7813231554984236,
+        "archived": 0.7813231554984236,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "metric": "P90_abs",
+        "current": 4.379468015194107,
+        "archived": 4.379468015194107,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "metric": "Max_abs",
+        "current": 9.109187425217982,
+        "archived": 9.109187425217982,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "metric": "Bias",
+        "current": 0.1008227658842867,
+        "archived": 0.1008227658842862,
+        "absolute_difference": 4.996003610813204e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "metric": "MAE",
+        "current": 1.7565100500285848,
+        "archived": 1.7565100500285822,
+        "absolute_difference": 2.6645352591003757e-15
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "metric": "RMSE",
+        "current": 2.206909725814526,
+        "archived": 2.2069097258145254,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "metric": "R2",
+        "current": 0.8583697074802173,
+        "archived": 0.8583697074802175,
+        "absolute_difference": 1.1102230246251565e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "metric": "P90_abs",
+        "current": 3.546972786797153,
+        "archived": 3.5469727867971357,
+        "absolute_difference": 1.7319479184152442e-14
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "metric": "Max_abs",
+        "current": 7.058581328288412,
+        "archived": 7.058581328288426,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "metric": "Bias",
+        "current": -0.17337747030411627,
+        "archived": -0.17337747030411793,
+        "absolute_difference": 1.6653345369377348e-15
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "metric": "MAE",
+        "current": 2.079797338027194,
+        "archived": 2.079797338027194,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "metric": "RMSE",
+        "current": 2.685717569196905,
+        "archived": 2.685717569196905,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "metric": "R2",
+        "current": 0.8431406347092831,
+        "archived": 0.8431406347092831,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "metric": "P90_abs",
+        "current": 4.505761662066724,
+        "archived": 4.505761662066724,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "metric": "Max_abs",
+        "current": 8.958931119594169,
+        "archived": 8.958931119594169,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "metric": "Bias",
+        "current": 0.1331242015636742,
+        "archived": 0.1331242015636742,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "metric": "MAE",
+        "current": 2.079797338027194,
+        "archived": 2.079797338027194,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "metric": "RMSE",
+        "current": 2.685717569196905,
+        "archived": 2.685717569196905,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "metric": "R2",
+        "current": 0.8431406347092831,
+        "archived": 0.8431406347092831,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "metric": "P90_abs",
+        "current": 4.505761662066724,
+        "archived": 4.505761662066724,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "metric": "Max_abs",
+        "current": 8.958931119594169,
+        "archived": 8.958931119594169,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "metric": "Bias",
+        "current": 0.1331242015636742,
+        "archived": 0.1331242015636742,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "metric": "MAE",
+        "current": 1.905236231448467,
+        "archived": 1.9052362314484674,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "metric": "RMSE",
+        "current": 2.5194812355344416,
+        "archived": 2.5194812355344425,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "metric": "R2",
+        "current": 0.8619577500220302,
+        "archived": 0.8619577500220301,
+        "absolute_difference": 1.1102230246251565e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "metric": "P90_abs",
+        "current": 4.366467514326837,
+        "archived": 4.366467514326857,
+        "absolute_difference": 1.9539925233402755e-14
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "metric": "Max_abs",
+        "current": 8.600305704379494,
+        "archived": 8.60030570437948,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "metric": "Bias",
+        "current": 0.20419278164742416,
+        "archived": 0.20419278164742624,
+        "absolute_difference": 2.0816681711721685e-15
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "metric": "MAE",
+        "current": 2.0018171856813387,
+        "archived": 2.001817185681338,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "metric": "RMSE",
+        "current": 2.620013122227233,
+        "archived": 2.620013122227232,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "metric": "R2",
+        "current": 0.850721691315387,
+        "archived": 0.8507216913153872,
+        "absolute_difference": 2.220446049250313e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "metric": "P90_abs",
+        "current": 4.391809561653901,
+        "archived": 4.391809561653901,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "metric": "Max_abs",
+        "current": 8.309881939667548,
+        "archived": 8.30988193966752,
+        "absolute_difference": 2.842170943040401e-14
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "metric": "Bias",
+        "current": 0.3905726509294073,
+        "archived": 0.390572650929407,
+        "absolute_difference": 2.7755575615628914e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "metric": "MAE",
+        "current": 1.9513683235568726,
+        "archived": 1.9513683235568717,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "metric": "RMSE",
+        "current": 2.5600557087366242,
+        "archived": 2.560055708736624,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "metric": "R2",
+        "current": 0.8574758023037808,
+        "archived": 0.857475802303781,
+        "absolute_difference": 1.1102230246251565e-16
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "metric": "P90_abs",
+        "current": 4.290823193383036,
+        "archived": 4.290823193383017,
+        "absolute_difference": 1.9539925233402755e-14
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "metric": "Max_abs",
+        "current": 8.352381930599961,
+        "archived": 8.352381930599947,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "pooled",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "metric": "Bias",
+        "current": 0.15353577419963343,
+        "archived": 0.1535357741996342,
+        "absolute_difference": 7.771561172376096e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "MAE",
+        "current": 1.8290748957281535,
+        "archived": 1.8290748957281535,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "RMSE",
+        "current": 2.2887281461098845,
+        "archived": 2.288728146109885,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "R2",
+        "current": 0.8423332165508041,
+        "archived": 0.8423332165508041,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "P90_abs",
+        "current": 3.568092861207621,
+        "archived": 3.568092861207621,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "Max_abs",
+        "current": 6.269306247952088,
+        "archived": 6.269306247952088,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "Bias",
+        "current": -0.06655160299730192,
+        "archived": -0.0665516029973008,
+        "absolute_difference": 1.124100812432971e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "TrainMAE",
+        "current": 1.2672576072701043,
+        "archived": 1.2672576072701047,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "MAE_gap",
+        "current": 0.5618172884580492,
+        "archived": 0.5618172884580488,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "MAE",
+        "current": 1.76268075615156,
+        "archived": 1.76268075615156,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "RMSE",
+        "current": 2.1875772090236363,
+        "archived": 2.1875772090236363,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "R2",
+        "current": 0.855961507663799,
+        "archived": 0.855961507663799,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "P90_abs",
+        "current": 3.766750846319238,
+        "archived": 3.766750846319238,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "Max_abs",
+        "current": 6.0579586944748485,
+        "archived": 6.0579586944748485,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "Bias",
+        "current": -0.17537919263704818,
+        "archived": -0.17537919263704818,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "TrainMAE",
+        "current": 1.6408809834676323,
+        "archived": 1.6408809834676323,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "MAE_gap",
+        "current": 0.12179977268392772,
+        "archived": 0.12179977268392772,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "MAE",
+        "current": 1.6426251323805272,
+        "archived": 1.642625132380524,
+        "absolute_difference": 3.1086244689504383e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "RMSE",
+        "current": 2.051350935868092,
+        "archived": 2.0513509358680864,
+        "absolute_difference": 5.773159728050814e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "R2",
+        "current": 0.8733422658348033,
+        "archived": 0.873342265834804,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "P90_abs",
+        "current": 3.2593944134805533,
+        "archived": 3.2593944134805644,
+        "absolute_difference": 1.1102230246251565e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "Max_abs",
+        "current": 5.704530940122879,
+        "archived": 5.704530940122865,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "Bias",
+        "current": -0.24463424403250042,
+        "archived": -0.24463424403249945,
+        "absolute_difference": 9.71445146547012e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "TrainMAE",
+        "current": 1.4862527089779267,
+        "archived": 1.486252708977929,
+        "absolute_difference": 2.220446049250313e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "MAE_gap",
+        "current": 0.1563724234026005,
+        "archived": 0.15637242340259516,
+        "absolute_difference": 5.329070518200751e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "MAE",
+        "current": 2.3003579049288683,
+        "archived": 2.3003579049288687,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "RMSE",
+        "current": 2.89878392952643,
+        "archived": 2.8987839295264286,
+        "absolute_difference": 1.3322676295501878e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "R2",
+        "current": 0.7470798232097022,
+        "archived": 0.7470798232097025,
+        "absolute_difference": 2.220446049250313e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "P90_abs",
+        "current": 4.506951006798211,
+        "archived": 4.5069510067982135,
+        "absolute_difference": 2.6645352591003757e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "Max_abs",
+        "current": 7.846895671411943,
+        "archived": 7.846895671411943,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "Bias",
+        "current": 0.03357812891911733,
+        "archived": 0.03357812891911661,
+        "absolute_difference": 7.216449660063518e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "TrainMAE",
+        "current": 1.8285392066272088,
+        "archived": 1.8285392066272101,
+        "absolute_difference": 1.3322676295501878e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "MAE_gap",
+        "current": 0.47181869830165946,
+        "archived": 0.47181869830165857,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "MAE",
+        "current": 1.6715546311263776,
+        "archived": 1.6715546311263683,
+        "absolute_difference": 9.325873406851315e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "RMSE",
+        "current": 2.089806912041052,
+        "archived": 2.0898069120410425,
+        "absolute_difference": 9.325873406851315e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "R2",
+        "current": 0.8685489349272735,
+        "archived": 0.8685489349272747,
+        "absolute_difference": 1.2212453270876722e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "P90_abs",
+        "current": 3.273145382899057,
+        "archived": 3.273145382899057,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "Max_abs",
+        "current": 5.810084695406857,
+        "archived": 5.810084695406843,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "Bias",
+        "current": -0.20789060731745207,
+        "archived": -0.2078906073174508,
+        "absolute_difference": 1.27675647831893e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "TrainMAE",
+        "current": 1.4641951327638159,
+        "archived": 1.4641951327638183,
+        "absolute_difference": 2.4424906541753444e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "MAE_gap",
+        "current": 0.20735949836256173,
+        "archived": 0.20735949836254997,
+        "absolute_difference": 1.176836406102666e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "MAE",
+        "current": 1.8877350429569575,
+        "archived": 1.8877350429569575,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "RMSE",
+        "current": 2.3584292424439486,
+        "archived": 2.358429242443949,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "R2",
+        "current": 0.8337529243220132,
+        "archived": 0.8337529243220132,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "P90_abs",
+        "current": 4.043500062384817,
+        "archived": 4.043500062384817,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "Max_abs",
+        "current": 5.845155478847005,
+        "archived": 5.845155478847005,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "Bias",
+        "current": -0.5522339067669726,
+        "archived": -0.5522339067669745,
+        "absolute_difference": 1.887379141862766e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "TrainMAE",
+        "current": 1.3037756730405157,
+        "archived": 1.3037756730405157,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "MAE_gap",
+        "current": 0.5839593699164418,
+        "archived": 0.5839593699164418,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "MAE",
+        "current": 2.071584026491969,
+        "archived": 2.071584026491969,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "RMSE",
+        "current": 2.5612046470829632,
+        "archived": 2.5612046470829632,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "R2",
+        "current": 0.8039364441494142,
+        "archived": 0.8039364441494142,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "P90_abs",
+        "current": 4.318756581165645,
+        "archived": 4.318756581165645,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "Max_abs",
+        "current": 6.3778175534574615,
+        "archived": 6.3778175534574615,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "Bias",
+        "current": -0.5919217416881286,
+        "archived": -0.5919217416881286,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "TrainMAE",
+        "current": 1.6254223027591288,
+        "archived": 1.6254223027591288,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "MAE_gap",
+        "current": 0.44616172373284035,
+        "archived": 0.44616172373284035,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "MAE",
+        "current": 1.7933734853826098,
+        "archived": 1.793373485382611,
+        "absolute_difference": 1.3322676295501878e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "RMSE",
+        "current": 2.2626030418570875,
+        "archived": 2.2626030418570924,
+        "absolute_difference": 4.884981308350689e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "R2",
+        "current": 0.8469881571122576,
+        "archived": 0.846988157112257,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "P90_abs",
+        "current": 3.624485684043112,
+        "archived": 3.6244856840431092,
+        "absolute_difference": 2.6645352591003757e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "Max_abs",
+        "current": 5.840885390980048,
+        "archived": 5.840885390980063,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "Bias",
+        "current": -0.36162070914695565,
+        "archived": -0.3616207091469571,
+        "absolute_difference": 1.4432899320127035e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "TrainMAE",
+        "current": 1.4406842499939643,
+        "archived": 1.4406842499939652,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "MAE_gap",
+        "current": 0.3526892353886455,
+        "archived": 0.35268923538864594,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "MAE",
+        "current": 2.1878066305039616,
+        "archived": 2.187806630503963,
+        "absolute_difference": 1.3322676295501878e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "RMSE",
+        "current": 2.6660161850833024,
+        "archived": 2.6660161850833033,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "R2",
+        "current": 0.7875611822619396,
+        "archived": 0.7875611822619394,
+        "absolute_difference": 2.220446049250313e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "P90_abs",
+        "current": 4.421312126426361,
+        "archived": 4.421312126426361,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "Max_abs",
+        "current": 6.336917078627806,
+        "archived": 6.336917078627806,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "Bias",
+        "current": -0.2529199139392174,
+        "archived": -0.2529199139392177,
+        "absolute_difference": 2.7755575615628914e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "TrainMAE",
+        "current": 1.8647915057610964,
+        "archived": 1.8647915057610969,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "MAE_gap",
+        "current": 0.3230151247428652,
+        "archived": 0.3230151247428661,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "MAE",
+        "current": 1.803981950247031,
+        "archived": 1.8039819502470318,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "RMSE",
+        "current": 2.2749368138356902,
+        "archived": 2.2749368138356947,
+        "absolute_difference": 4.440892098500626e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "R2",
+        "current": 0.8453154316015612,
+        "archived": 0.8453154316015605,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "P90_abs",
+        "current": 3.654895633361256,
+        "archived": 3.654895633361267,
+        "absolute_difference": 1.1102230246251565e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "Max_abs",
+        "current": 5.90718978983449,
+        "archived": 5.907189789834504,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "Bias",
+        "current": -0.34307171435964556,
+        "archived": -0.3430717143596475,
+        "absolute_difference": 1.942890293094024e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "TrainMAE",
+        "current": 1.4403078202381125,
+        "archived": 1.440307820238113,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "MAE_gap",
+        "current": 0.36367413000891835,
+        "archived": 0.3636741300089188,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "MAE",
+        "current": 1.901802901395251,
+        "archived": 1.9018029013952504,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "RMSE",
+        "current": 2.3387764037424086,
+        "archived": 2.338776403742408,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "R2",
+        "current": 0.8332560502285783,
+        "archived": 0.8332560502285784,
+        "absolute_difference": 1.1102230246251565e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "P90_abs",
+        "current": 3.475458390326927,
+        "archived": 3.4754583903269243,
+        "absolute_difference": 2.6645352591003757e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "Max_abs",
+        "current": 6.5450968362276,
+        "archived": 6.5450968362276,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "Bias",
+        "current": 0.08979008323701912,
+        "archived": 0.08979008323702248,
+        "absolute_difference": 3.3584246494910985e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "TrainMAE",
+        "current": 1.391524945702503,
+        "archived": 1.391524945702503,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "MAE_gap",
+        "current": 0.5102779556927481,
+        "archived": 0.5102779556927475,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "MAE",
+        "current": 2.030926057892445,
+        "archived": 2.030926057892445,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "RMSE",
+        "current": 2.4511297906347647,
+        "archived": 2.4511297906347647,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "R2",
+        "current": 0.8168506868416675,
+        "archived": 0.8168506868416675,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "P90_abs",
+        "current": 3.6526843438756407,
+        "archived": 3.6526843438756407,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "Max_abs",
+        "current": 6.4358244333033525,
+        "archived": 6.4358244333033525,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "Bias",
+        "current": -0.0011724487772815993,
+        "archived": -0.0011724487772815993,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "TrainMAE",
+        "current": 1.725891508144169,
+        "archived": 1.725891508144169,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "MAE_gap",
+        "current": 0.30503454974827604,
+        "archived": 0.30503454974827604,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "MAE",
+        "current": 1.7896445170692525,
+        "archived": 1.7896445170692536,
+        "absolute_difference": 1.1102230246251565e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "RMSE",
+        "current": 2.268579118694136,
+        "archived": 2.2685791186941375,
+        "absolute_difference": 1.3322676295501878e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "R2",
+        "current": 0.8431153192909907,
+        "archived": 0.8431153192909905,
+        "absolute_difference": 2.220446049250313e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "P90_abs",
+        "current": 3.5205971936015263,
+        "archived": 3.5205971936015463,
+        "absolute_difference": 1.9984014443252818e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "Max_abs",
+        "current": 7.002784528945966,
+        "archived": 7.002784528945966,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "Bias",
+        "current": 0.04560135951300122,
+        "archived": 0.04560135951300058,
+        "absolute_difference": 6.38378239159465e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "TrainMAE",
+        "current": 1.5047240921724305,
+        "archived": 1.5047240921724299,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "MAE_gap",
+        "current": 0.284920424896822,
+        "archived": 0.2849204248968238,
+        "absolute_difference": 1.7763568394002505e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "MAE",
+        "current": 2.1097402846826214,
+        "archived": 2.1097402846826214,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "RMSE",
+        "current": 2.6550522729042494,
+        "archived": 2.6550522729042503,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "R2",
+        "current": 0.785108701820235,
+        "archived": 0.7851087018202348,
+        "absolute_difference": 1.1102230246251565e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "P90_abs",
+        "current": 3.746982692126744,
+        "archived": 3.746982692126744,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "Max_abs",
+        "current": 9.109187425217982,
+        "archived": 9.109187425217982,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "Bias",
+        "current": 0.5218100826729601,
+        "archived": 0.5218100826729597,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "TrainMAE",
+        "current": 1.9748388166221589,
+        "archived": 1.9748388166221584,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "MAE_gap",
+        "current": 0.13490146806046255,
+        "archived": 0.134901468060463,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "MAE",
+        "current": 1.7939935687123463,
+        "archived": 1.793993568712347,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "RMSE",
+        "current": 2.2513820593415055,
+        "archived": 2.2513820593415077,
+        "absolute_difference": 2.220446049250313e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "R2",
+        "current": 0.8454848458040949,
+        "archived": 0.8454848458040946,
+        "absolute_difference": 3.3306690738754696e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "P90_abs",
+        "current": 3.410689990017258,
+        "archived": 3.4106899900172465,
+        "absolute_difference": 1.1546319456101628e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "Max_abs",
+        "current": 7.058581328288412,
+        "archived": 7.058581328288426,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "Bias",
+        "current": 0.030829910764748836,
+        "archived": 0.030829910764744523,
+        "absolute_difference": 4.3125225612783424e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "TrainMAE",
+        "current": 1.498103588991191,
+        "archived": 1.4981035889911916,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Ni",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "MAE_gap",
+        "current": 0.2958899797211554,
+        "archived": 0.2958899797211554,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "MAE",
+        "current": 1.9933940192987105,
+        "archived": 1.9933940192987105,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "RMSE",
+        "current": 2.606437309004042,
+        "archived": 2.606437309004042,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "R2",
+        "current": 0.8440729394717341,
+        "archived": 0.8440729394717341,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "P90_abs",
+        "current": 4.212880055240868,
+        "archived": 4.212880055240868,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "Max_abs",
+        "current": 8.958931119594169,
+        "archived": 8.958931119594169,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "Bias",
+        "current": 0.7403020745160387,
+        "archived": 0.7403020745160387,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "TrainMAE",
+        "current": 1.9757494791923773,
+        "archived": 1.9757494791923773,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 1,
+        "metric": "MAE_gap",
+        "current": 0.017644540106333206,
+        "archived": 0.017644540106333206,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "MAE",
+        "current": 1.9933940192987105,
+        "archived": 1.9933940192987105,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "RMSE",
+        "current": 2.606437309004042,
+        "archived": 2.606437309004042,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "R2",
+        "current": 0.8440729394717341,
+        "archived": 0.8440729394717341,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "P90_abs",
+        "current": 4.212880055240868,
+        "archived": 4.212880055240868,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "Max_abs",
+        "current": 8.958931119594169,
+        "archived": 8.958931119594169,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "Bias",
+        "current": 0.7403020745160387,
+        "archived": 0.7403020745160387,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "TrainMAE",
+        "current": 1.9757494791923773,
+        "archived": 1.9757494791923773,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 1,
+        "metric": "MAE_gap",
+        "current": 0.017644540106333206,
+        "archived": 0.017644540106333206,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "MAE",
+        "current": 1.8409261381926891,
+        "archived": 1.840926138192686,
+        "absolute_difference": 3.1086244689504383e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "RMSE",
+        "current": 2.4375775531265003,
+        "archived": 2.437577553126497,
+        "absolute_difference": 3.1086244689504383e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "R2",
+        "current": 0.8636221597084796,
+        "archived": 0.8636221597084799,
+        "absolute_difference": 3.3306690738754696e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "P90_abs",
+        "current": 3.9764076833591027,
+        "archived": 3.976407683359091,
+        "absolute_difference": 1.1546319456101628e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "Max_abs",
+        "current": 8.600305704379494,
+        "archived": 8.60030570437948,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "Bias",
+        "current": 0.6531161245186273,
+        "archived": 0.6531161245186274,
+        "absolute_difference": 1.1102230246251565e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "TrainMAE",
+        "current": 1.808282160494445,
+        "archived": 1.8082821604944443,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 1,
+        "metric": "MAE_gap",
+        "current": 0.03264397769824412,
+        "archived": 0.03264397769824168,
+        "absolute_difference": 2.4424906541753444e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "MAE",
+        "current": 1.9817445292253084,
+        "archived": 1.9817445292253073,
+        "absolute_difference": 1.1102230246251565e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "RMSE",
+        "current": 2.5839889313739555,
+        "archived": 2.5839889313739515,
+        "absolute_difference": 3.9968028886505635e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "R2",
+        "current": 0.8467472689286781,
+        "archived": 0.8467472689286786,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "P90_abs",
+        "current": 3.9539951801040765,
+        "archived": 3.953995180104065,
+        "absolute_difference": 1.1546319456101628e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "Max_abs",
+        "current": 8.309881939667548,
+        "archived": 8.30988193966752,
+        "absolute_difference": 2.842170943040401e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "Bias",
+        "current": 0.884643891000723,
+        "archived": 0.8846438910007193,
+        "absolute_difference": 3.774758283725532e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "TrainMAE",
+        "current": 1.8626335773545017,
+        "archived": 1.862633577354501,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 1,
+        "metric": "MAE_gap",
+        "current": 0.11911095187080667,
+        "archived": 0.11911095187080623,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "MAE",
+        "current": 1.8544824872546506,
+        "archived": 1.854482487254646,
+        "absolute_difference": 4.6629367034256575e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "RMSE",
+        "current": 2.4420679602102973,
+        "archived": 2.4420679602102924,
+        "absolute_difference": 4.884981308350689e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "R2",
+        "current": 0.8631192373860488,
+        "archived": 0.8631192373860493,
+        "absolute_difference": 5.551115123125783e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "P90_abs",
+        "current": 4.132054659056537,
+        "archived": 4.132054659056533,
+        "absolute_difference": 3.552713678800501e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "Max_abs",
+        "current": 8.352381930599961,
+        "archived": 8.352381930599947,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "Bias",
+        "current": 0.6277329258886128,
+        "archived": 0.6277329258886102,
+        "absolute_difference": 2.6645352591003757e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "TrainMAE",
+        "current": 1.8041117537424947,
+        "archived": 1.8041117537424947,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 1,
+        "metric": "MAE_gap",
+        "current": 0.05037073351215593,
+        "archived": 0.05037073351215127,
+        "absolute_difference": 4.6629367034256575e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "MAE",
+        "current": 2.069930505629788,
+        "archived": 2.069930505629788,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "RMSE",
+        "current": 2.6364568257613756,
+        "archived": 2.6364568257613756,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "R2",
+        "current": 0.8438227297749851,
+        "archived": 0.8438227297749851,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "P90_abs",
+        "current": 4.233812936072866,
+        "archived": 4.233812936072866,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "Max_abs",
+        "current": 8.078930249435722,
+        "archived": 8.078930249435722,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "Bias",
+        "current": -0.4286625838383572,
+        "archived": -0.4286625838383572,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "TrainMAE",
+        "current": 1.9493587902447385,
+        "archived": 1.9493587902447385,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 2,
+        "metric": "MAE_gap",
+        "current": 0.12057171538504963,
+        "archived": 0.12057171538504963,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "MAE",
+        "current": 2.069930505629788,
+        "archived": 2.069930505629788,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "RMSE",
+        "current": 2.6364568257613756,
+        "archived": 2.6364568257613756,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "R2",
+        "current": 0.8438227297749851,
+        "archived": 0.8438227297749851,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "P90_abs",
+        "current": 4.233812936072866,
+        "archived": 4.233812936072866,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "Max_abs",
+        "current": 8.078930249435722,
+        "archived": 8.078930249435722,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "Bias",
+        "current": -0.4286625838383572,
+        "archived": -0.4286625838383572,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "TrainMAE",
+        "current": 1.9493587902447385,
+        "archived": 1.9493587902447385,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 2,
+        "metric": "MAE_gap",
+        "current": 0.12057171538504963,
+        "archived": 0.12057171538504963,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "MAE",
+        "current": 1.8477802994826427,
+        "archived": 1.8477802994826478,
+        "absolute_difference": 5.10702591327572e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "RMSE",
+        "current": 2.4070171445253687,
+        "archived": 2.4070171445253745,
+        "absolute_difference": 5.773159728050814e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "R2",
+        "current": 0.8698228175696202,
+        "archived": 0.8698228175696195,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "P90_abs",
+        "current": 3.764894641992362,
+        "archived": 3.764894641992376,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "Max_abs",
+        "current": 7.509506301715021,
+        "archived": 7.509506301715035,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "Bias",
+        "current": -0.14669823403075682,
+        "archived": -0.1466982340307533,
+        "absolute_difference": 3.524958103184872e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "TrainMAE",
+        "current": 1.7009062442874436,
+        "archived": 1.7009062442874443,
+        "absolute_difference": 6.661338147750939e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 2,
+        "metric": "MAE_gap",
+        "current": 0.14687405519519903,
+        "archived": 0.14687405519520347,
+        "absolute_difference": 4.440892098500626e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "MAE",
+        "current": 2.0369332016218307,
+        "archived": 2.0369332016218324,
+        "absolute_difference": 1.7763568394002505e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "RMSE",
+        "current": 2.5944241767638,
+        "archived": 2.5944241767638023,
+        "absolute_difference": 2.220446049250313e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "R2",
+        "current": 0.8487628566356987,
+        "archived": 0.8487628566356985,
+        "absolute_difference": 2.220446049250313e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "P90_abs",
+        "current": 4.194559790557872,
+        "archived": 4.194559790557884,
+        "absolute_difference": 1.1546319456101628e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "Max_abs",
+        "current": 8.014400045909724,
+        "archived": 8.01440004590971,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "Bias",
+        "current": 0.008087928226375076,
+        "archived": 0.008087928226374996,
+        "absolute_difference": 7.979727989493313e-17
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "TrainMAE",
+        "current": 1.8580174109890613,
+        "archived": 1.8580174109890617,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 2,
+        "metric": "MAE_gap",
+        "current": 0.1789157906327694,
+        "archived": 0.17891579063277074,
+        "absolute_difference": 1.3322676295501878e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "MAE",
+        "current": 1.9312049924832282,
+        "archived": 1.9312049924832309,
+        "absolute_difference": 2.6645352591003757e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "RMSE",
+        "current": 2.479870224736678,
+        "archived": 2.4798702247366813,
+        "absolute_difference": 3.1086244689504383e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "R2",
+        "current": 0.8618234298276879,
+        "archived": 0.8618234298276876,
+        "absolute_difference": 3.3306690738754696e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "P90_abs",
+        "current": 3.8983141929203593,
+        "archived": 3.898314192920362,
+        "absolute_difference": 2.6645352591003757e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "Max_abs",
+        "current": 7.383714208162246,
+        "archived": 7.38371420816226,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "Bias",
+        "current": -0.26633556942483894,
+        "archived": -0.2663355694248367,
+        "absolute_difference": 2.220446049250313e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "TrainMAE",
+        "current": 1.7431862007796657,
+        "archived": 1.743186200779666,
+        "absolute_difference": 2.220446049250313e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 2,
+        "metric": "MAE_gap",
+        "current": 0.1880187917035625,
+        "archived": 0.18801879170356495,
+        "absolute_difference": 2.4424906541753444e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "MAE",
+        "current": 2.176067489153084,
+        "archived": 2.176067489153084,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "RMSE",
+        "current": 2.809771617873384,
+        "archived": 2.809771617873384,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "R2",
+        "current": 0.8271763247982722,
+        "archived": 0.8271763247982722,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "P90_abs",
+        "current": 4.9348474632840285,
+        "archived": 4.9348474632840285,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "Max_abs",
+        "current": 7.212981062676043,
+        "archived": 7.212981062676043,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "Bias",
+        "current": 0.08773311401334104,
+        "archived": 0.08773311401334104,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "TrainMAE",
+        "current": 1.9349804427899637,
+        "archived": 1.9349804427899637,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "baseline",
+        "Fold": 3,
+        "metric": "MAE_gap",
+        "current": 0.24108704636312028,
+        "archived": 0.24108704636312028,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "MAE",
+        "current": 2.176067489153084,
+        "archived": 2.176067489153084,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "RMSE",
+        "current": 2.809771617873384,
+        "archived": 2.809771617873384,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "R2",
+        "current": 0.8271763247982722,
+        "archived": 0.8271763247982722,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "P90_abs",
+        "current": 4.9348474632840285,
+        "archived": 4.9348474632840285,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "Max_abs",
+        "current": 7.212981062676043,
+        "archived": 7.212981062676043,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "Bias",
+        "current": 0.08773311401334104,
+        "archived": 0.08773311401334104,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "TrainMAE",
+        "current": 1.9349804427899637,
+        "archived": 1.9349804427899637,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "ridge11",
+        "Fold": 3,
+        "metric": "MAE_gap",
+        "current": 0.24108704636312028,
+        "archived": 0.24108704636312028,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "MAE",
+        "current": 2.027002256670069,
+        "archived": 2.027002256670068,
+        "absolute_difference": 1.3322676295501878e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "RMSE",
+        "current": 2.7033019119375536,
+        "archived": 2.7033019119375536,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "R2",
+        "current": 0.8400256710818257,
+        "archived": 0.8400256710818257,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "P90_abs",
+        "current": 4.515005020595902,
+        "archived": 4.5150050205958765,
+        "absolute_difference": 2.5757174171303632e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "Max_abs",
+        "current": 7.387574947227975,
+        "archived": 7.3875749472280035,
+        "absolute_difference": 2.842170943040401e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "Bias",
+        "current": 0.106160454454402,
+        "archived": 0.10616045445440456,
+        "absolute_difference": 2.55351295663786e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "TrainMAE",
+        "current": 1.7384390277414994,
+        "archived": 1.738439027741497,
+        "absolute_difference": 2.4424906541753444e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "curve17",
+        "Fold": 3,
+        "metric": "MAE_gap",
+        "current": 0.2885632289285698,
+        "archived": 0.2885632289285709,
+        "absolute_difference": 1.1102230246251565e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "MAE",
+        "current": 1.9867738261968773,
+        "archived": 1.9867738261968733,
+        "absolute_difference": 3.9968028886505635e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "RMSE",
+        "current": 2.68055417320543,
+        "archived": 2.680554173205427,
+        "absolute_difference": 2.6645352591003757e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "R2",
+        "current": 0.8427066467208727,
+        "archived": 0.842706646720873,
+        "absolute_difference": 3.3306690738754696e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "P90_abs",
+        "current": 4.693510539714079,
+        "archived": 4.693510539714079,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "Max_abs",
+        "current": 7.575931505764544,
+        "archived": 7.575931505764558,
+        "absolute_difference": 1.4210854715202004e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "Bias",
+        "current": 0.27898613356112395,
+        "archived": 0.27898613356112684,
+        "absolute_difference": 2.886579864025407e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "TrainMAE",
+        "current": 1.8951094966271582,
+        "archived": 1.8951094966271578,
+        "absolute_difference": 4.440892098500626e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "bounded17",
+        "Fold": 3,
+        "metric": "MAE_gap",
+        "current": 0.09166432956971904,
+        "archived": 0.09166432956971549,
+        "absolute_difference": 3.552713678800501e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "MAE",
+        "current": 2.068417490932738,
+        "archived": 2.068417490932738,
+        "absolute_difference": 0.0
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "RMSE",
+        "current": 2.747399396098739,
+        "archived": 2.747399396098738,
+        "absolute_difference": 8.881784197001252e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "R2",
+        "current": 0.8347639552367738,
+        "archived": 0.8347639552367739,
+        "absolute_difference": 1.1102230246251565e-16
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "P90_abs",
+        "current": 4.7404827842903305,
+        "archived": 4.7404827842903074,
+        "absolute_difference": 2.3092638912203256e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "Max_abs",
+        "current": 7.548355510822148,
+        "archived": 7.5483555108221765,
+        "absolute_difference": 2.842170943040401e-14
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "Bias",
+        "current": 0.09920996613512643,
+        "archived": 0.09920996613512915,
+        "absolute_difference": 2.7200464103316335e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "TrainMAE",
+        "current": 1.728923161630837,
+        "archived": 1.7289231616308347,
+        "absolute_difference": 2.220446049250313e-15
+      },
+      {
+        "scope": "fold",
+        "Metal": "Co",
+        "Candidate": "interaction20",
+        "Fold": 3,
+        "metric": "MAE_gap",
+        "current": 0.33949432930190127,
+        "archived": 0.3394943293019035,
+        "absolute_difference": 2.220446049250313e-15
+      }
+    ],
+    "archived_environment": {
+      "python": "3.13.5",
+      "numpy": "2.3.5",
+      "scikit_learn": "1.8.0",
+      "scipy": "1.17.0"
+    },
+    "current_environment": {
+      "python": "3.12.14",
+      "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3",
+      "scipy": "1.17.0",
+      "scikit-learn": "1.8.0",
+      "openpyxl": "3.1.5",
+      "matplotlib": "3.10.8"
+    },
+    "interpretation": "Numeric agreement is a development-data reproduction check, not fresh predictive validation or a claim of identical runtime floating point arithmetic."
+  },
+  "files": {
+    "metrics": "metrics.csv",
+    "fold_metrics": "fold_metrics.csv",
+    "oof_predictions": "oof_predictions.csv",
+    "tuning": "tuning_results.csv",
+    "target_classification": "target_classification.csv",
+    "fit_audit": "evaluation_fit_audit.json",
+    "reproduction": "evaluation_reproduction.json",
+    "summary": "evaluation_summary.json",
+    "predicted_vs_actual": "predicted_vs_actual.png",
+    "residuals": "residuals.png",
+    "mae_comparison": "model_mae_comparison.png"
+  },
+  "interpretation": "Regression errors are in recovery percentage points. Target classification is descriptive at observed validation conditions; it does not validate optimized recipes. Last 63 batches remain excluded."
+}

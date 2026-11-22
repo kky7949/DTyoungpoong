@@ -1,0 +1,340 @@
+{
+  "app_version": "YP-course-final-1.0",
+  "model_version": "YP-curve17-dev357-v2",
+  "evaluation_scope": "영풍 제공 데이터 내부 검증; 독립 성능·실제 달성 보장 아님",
+  "current": {
+    "condition": {
+      "황산투입량_L": 712.0,
+      "침출온도_C": 81.6,
+      "침출시간_hr": 6.1
+    },
+    "raw_prediction": {
+      "Ni_pct": 90.27123904234665,
+      "Co_pct": 85.49722578796253
+    },
+    "prediction": {
+      "Ni_pct": 90.27123904234665,
+      "Co_pct": 85.49722578796253
+    },
+    "usable": true,
+    "warnings": [],
+    "distance": 0.0
+  },
+  "modes": {
+    "joint": {
+      "index": 4137,
+      "ranked_indices": [
+        4137,
+        4136,
+        4138
+      ],
+      "status": "RECOMMENDED_ON_PREDICTION",
+      "eligible_count": 81,
+      "raw_feasible": 81,
+      "unsupported_feasible": 0,
+      "alternative_index": null,
+      "recommendation": {
+        "condition": {
+          "황산투입량_L": 1500.0,
+          "침출온도_C": 95.0,
+          "침출시간_hr": 7.0
+        },
+        "raw_prediction": {
+          "Ni_pct": 96.35163412774527,
+          "Co_pct": 91.50736186458019
+        },
+        "prediction": {
+          "Ni_pct": 96.35163412774527,
+          "Co_pct": 91.50736186458019
+        },
+        "usable": true,
+        "warnings": [],
+        "distance": 2.0854848362335163,
+        "candidate_id": 4137,
+        "margin_pp": {
+          "Ni": 1.351634127745271,
+          "Co": 1.50736186458019
+        }
+      },
+      "closest_alternative": null,
+      "top_candidates": [
+        {
+          "condition": {
+            "황산투입량_L": 1500.0,
+            "침출온도_C": 95.0,
+            "침출시간_hr": 7.0
+          },
+          "raw_prediction": {
+            "Ni_pct": 96.35163412774527,
+            "Co_pct": 91.50736186458019
+          },
+          "prediction": {
+            "Ni_pct": 96.35163412774527,
+            "Co_pct": 91.50736186458019
+          },
+          "usable": true,
+          "warnings": [],
+          "distance": 2.0854848362335163,
+          "candidate_id": 4137,
+          "margin_pp": {
+            "Ni": 1.351634127745271,
+            "Co": 1.50736186458019
+          }
+        },
+        {
+          "condition": {
+            "황산투입량_L": 1500.0,
+            "침출온도_C": 95.0,
+            "침출시간_hr": 6.5
+          },
+          "raw_prediction": {
+            "Ni_pct": 96.15882015971754,
+            "Co_pct": 91.52557260876456
+          },
+          "prediction": {
+            "Ni_pct": 96.15882015971754,
+            "Co_pct": 91.52557260876456
+          },
+          "usable": true,
+          "warnings": [],
+          "distance": 2.0679975065600575,
+          "candidate_id": 4136,
+          "margin_pp": {
+            "Ni": 1.1588201597175356,
+            "Co": 1.5255726087645627
+          }
+        },
+        {
+          "condition": {
+            "황산투입량_L": 1500.0,
+            "침출온도_C": 95.0,
+            "침출시간_hr": 7.5
+          },
+          "raw_prediction": {
+            "Ni_pct": 96.43988508332893,
+            "Co_pct": 91.36914536179312
+          },
+          "prediction": {
+            "Ni_pct": 96.43988508332893,
+            "Co_pct": 91.36914536179312
+          },
+          "usable": true,
+          "warnings": [],
+          "distance": 2.134569384234121,
+          "candidate_id": 4138,
+          "margin_pp": {
+            "Ni": 1.4398850833289316,
+            "Co": 1.369145361793116
+          }
+        }
+      ]
+    },
+    "ni": {
+      "index": 4138,
+      "ranked_indices": [
+        4138,
+        4139,
+        4137
+      ],
+      "status": "RECOMMENDED_ON_PREDICTION",
+      "eligible_count": 4089,
+      "raw_feasible": 4140,
+      "unsupported_feasible": 51,
+      "alternative_index": null,
+      "recommendation": {
+        "condition": {
+          "황산투입량_L": 1500.0,
+          "침출온도_C": 95.0,
+          "침출시간_hr": 7.5
+        },
+        "raw_prediction": {
+          "Ni_pct": 96.43988508332893,
+          "Co_pct": 91.36914536179312
+        },
+        "prediction": {
+          "Ni_pct": 96.43988508332893,
+          "Co_pct": 91.36914536179312
+        },
+        "usable": true,
+        "warnings": [],
+        "distance": 2.134569384234121,
+        "candidate_id": 4138,
+        "margin_pp": null
+      },
+      "closest_alternative": null,
+      "top_candidates": [
+        {
+          "condition": {
+            "황산투입량_L": 1500.0,
+            "침출온도_C": 95.0,
+            "침출시간_hr": 7.5
+          },
+          "raw_prediction": {
+            "Ni_pct": 96.43988508332893,
+            "Co_pct": 91.36914536179312
+          },
+          "prediction": {
+            "Ni_pct": 96.43988508332893,
+            "Co_pct": 91.36914536179312
+          },
+          "usable": true,
+          "warnings": [],
+          "distance": 2.134569384234121,
+          "candidate_id": 4138,
+          "margin_pp": null
+        },
+        {
+          "condition": {
+            "황산투입량_L": 1500.0,
+            "침출온도_C": 95.0,
+            "침출시간_hr": 8.0
+          },
+          "raw_prediction": {
+            "Ni_pct": 96.42357302646852,
+            "Co_pct": 91.11092310040333
+          },
+          "prediction": {
+            "Ni_pct": 96.42357302646852,
+            "Co_pct": 91.11092310040333
+          },
+          "usable": true,
+          "warnings": [],
+          "distance": 2.21314980265406,
+          "candidate_id": 4139,
+          "margin_pp": null
+        },
+        {
+          "condition": {
+            "황산투입량_L": 1500.0,
+            "침출온도_C": 95.0,
+            "침출시간_hr": 7.0
+          },
+          "raw_prediction": {
+            "Ni_pct": 96.35163412774527,
+            "Co_pct": 91.50736186458019
+          },
+          "prediction": {
+            "Ni_pct": 96.35163412774527,
+            "Co_pct": 91.50736186458019
+          },
+          "usable": true,
+          "warnings": [],
+          "distance": 2.0854848362335163,
+          "candidate_id": 4137,
+          "margin_pp": null
+        }
+      ]
+    },
+    "co": {
+      "index": 4136,
+      "ranked_indices": [
+        4136,
+        4137,
+        3956
+      ],
+      "status": "RECOMMENDED_ON_PREDICTION",
+      "eligible_count": 4089,
+      "raw_feasible": 4140,
+      "unsupported_feasible": 51,
+      "alternative_index": null,
+      "recommendation": {
+        "condition": {
+          "황산투입량_L": 1500.0,
+          "침출온도_C": 95.0,
+          "침출시간_hr": 6.5
+        },
+        "raw_prediction": {
+          "Ni_pct": 96.15882015971754,
+          "Co_pct": 91.52557260876456
+        },
+        "prediction": {
+          "Ni_pct": 96.15882015971754,
+          "Co_pct": 91.52557260876456
+        },
+        "usable": true,
+        "warnings": [],
+        "distance": 2.0679975065600575,
+        "candidate_id": 4136,
+        "margin_pp": null
+      },
+      "closest_alternative": null,
+      "top_candidates": [
+        {
+          "condition": {
+            "황산투입량_L": 1500.0,
+            "침출온도_C": 95.0,
+            "침출시간_hr": 6.5
+          },
+          "raw_prediction": {
+            "Ni_pct": 96.15882015971754,
+            "Co_pct": 91.52557260876456
+          },
+          "prediction": {
+            "Ni_pct": 96.15882015971754,
+            "Co_pct": 91.52557260876456
+          },
+          "usable": true,
+          "warnings": [],
+          "distance": 2.0679975065600575,
+          "candidate_id": 4136,
+          "margin_pp": null
+        },
+        {
+          "condition": {
+            "황산투입량_L": 1500.0,
+            "침출온도_C": 95.0,
+            "침출시간_hr": 7.0
+          },
+          "raw_prediction": {
+            "Ni_pct": 96.35163412774527,
+            "Co_pct": 91.50736186458019
+          },
+          "prediction": {
+            "Ni_pct": 96.35163412774527,
+            "Co_pct": 91.50736186458019
+          },
+          "usable": true,
+          "warnings": [],
+          "distance": 2.0854848362335163,
+          "candidate_id": 4137,
+          "margin_pp": null
+        },
+        {
+          "condition": {
+            "황산투입량_L": 1450.0,
+            "침출온도_C": 95.0,
+            "침출시간_hr": 6.5
+          },
+          "raw_prediction": {
+            "Ni_pct": 96.03501765613026,
+            "Co_pct": 91.46418504549372
+          },
+          "prediction": {
+            "Ni_pct": 96.03501765613026,
+            "Co_pct": 91.46418504549372
+          },
+          "usable": true,
+          "warnings": [],
+          "distance": 1.993361759902114,
+          "candidate_id": 3956,
+          "margin_pp": null
+        }
+      ]
+    }
+  },
+  "candidate_count": 4140,
+  "valid_count": 4089,
+  "output_rejected": 0,
+  "distance_rejected": 51,
+  "floors_pct": [
+    95.0,
+    90.0
+  ],
+  "joint_rule": "distance",
+  "supported_max_pct": {
+    "Ni": 96.43988508332893,
+    "Co": 91.52557260876456
+  },
+  "same_candidate_all": false,
+  "plant_operation_approved": false
+}

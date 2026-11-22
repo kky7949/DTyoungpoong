@@ -1,0 +1,74 @@
+{
+  "export_shape_and_alpha": {
+    "passed": true,
+    "parameter_shape": [
+      2,
+      52
+    ],
+    "distance_points_shape": [
+      151,
+      11
+    ],
+    "selected_alphas": {
+      "Ni": 0.1,
+      "Co": 0.1
+    }
+  },
+  "result_shapes_and_oof_scope": {
+    "passed": true,
+    "row_counts": {
+      "metrics": 10,
+      "fold_metrics": 30,
+      "oof_predictions": 2670,
+      "tuning_results": 288,
+      "target_classification": 9,
+      "permutation_importance": 22,
+      "permutation_importance_details": 660,
+      "permutation_importance_by_fold": 66,
+      "standardized_coefficients": 34
+    },
+    "oof_row_index_min": 90,
+    "oof_row_index_max": 356
+  },
+  "fit_audit_training_scope": {
+    "passed": true,
+    "evaluation_pipeline_fits": 324,
+    "final_pipeline_fits": 26,
+    "maximum_allowed_row_index": 356
+  },
+  "archived_cv_and_classification": {
+    "passed": true,
+    "comparisons": 300,
+    "max_metric_difference": 2.842170943040401e-14,
+    "classification_reference_rows": 9
+  },
+  "holdout_mutation_invariance": {
+    "passed": true,
+    "mutated_holdout_rows": 63,
+    "unchanged_development_rows": 357,
+    "scope": "Development frame fed to every training/evaluation procedure is identical after arbitrary changes in excluded inputs/labels."
+  },
+  "independent_archived_course_engine": {
+    "passed": true,
+    "source": "youngpoong_course_final.py",
+    "source_sha256": "c060f5e49a1feb5f3f3bff0705ca49e3c96ef3c4a8217f2c337eb2644616e9b8",
+    "frozen_parameters_equal_source_exactly": true,
+    "complete_rows": 151,
+    "refit_prediction_max_absolute_difference": 8.526512829121202e-14
+  },
+  "strict_portable_json": {
+    "passed": true,
+    "json_files_checked": 10
+  },
+  "figure_visual_qa": {
+    "passed": true,
+    "files": [
+      "predicted_vs_actual.png",
+      "residuals.png",
+      "model_mae_comparison.png",
+      "permutation_importance.png",
+      "standardized_coefficients.png"
+    ],
+    "note": "Figures rendered and visually inspected; bar-value labels placed above outer-fold marks."
+  }
+}

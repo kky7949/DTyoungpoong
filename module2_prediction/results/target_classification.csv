@@ -1,0 +1,10 @@
+population,target,N,TP,FP,FN,TN,predicted_pass,actual_pass,precision,recall,Ni_threshold,Co_threshold
+all,Ni,267,3,3,11,250,6,14,0.5,0.21428571428571427,95,90
+all,Co,267,3,0,2,262,3,5,1.0,0.6,95,90
+all,joint,267,1,1,1,264,2,2,0.5,0.5,95,90
+complete,Ni,113,1,1,5,106,2,6,0.5,0.16666666666666666,95,90
+complete,Co,113,1,0,1,111,1,2,1.0,0.5,95,90
+complete,joint,113,0,1,1,111,1,1,0.0,0.0,95,90
+process_complete,Ni,213,3,1,10,199,4,13,0.75,0.23076923076923078,95,90
+process_complete,Co,213,3,0,2,208,3,5,1.0,0.6,95,90
+process_complete,joint,213,1,1,1,210,2,2,0.5,0.5,95,90

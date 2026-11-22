@@ -1,0 +1,106 @@
+{
+  "fit_scope": "development only",
+  "fit_rows": 357,
+  "fit_first_batch": "BP-2025-0001",
+  "fit_last_batch": "BP-2025-0357",
+  "feature_mode": "A17",
+  "base_feature_names": [
+    "Ni_함량_pct",
+    "Co_함량_pct",
+    "Li_함량_pct",
+    "Mn_함량_pct",
+    "Cu_불순물_pct",
+    "Fe_불순물_pct",
+    "Al_불순물_pct",
+    "원료투입량_kg",
+    "황산투입량_L",
+    "침출온도_C",
+    "침출시간_hr"
+  ],
+  "minimum_grade_observed_count": 5,
+  "global_median": {
+    "Ni_함량_pct": 19.195,
+    "Co_함량_pct": 8.24,
+    "Li_함량_pct": 3.94,
+    "Mn_함량_pct": 10.325,
+    "Cu_불순물_pct": 1.605,
+    "Fe_불순물_pct": 1.34,
+    "Al_불순물_pct": 2.29,
+    "원료투입량_kg": 142.5,
+    "황산투입량_L": 933.0,
+    "침출온도_C": 68.15,
+    "침출시간_hr": 4.1
+  },
+  "grade_median": {
+    "A": {
+      "Ni_함량_pct": 24.225,
+      "Co_함량_pct": 10.99,
+      "Li_함량_pct": 4.575,
+      "Mn_함량_pct": 8.98,
+      "Cu_불순물_pct": 0.76,
+      "Fe_불순물_pct": 0.635,
+      "Al_불순물_pct": 1.2349999999999999
+    },
+    "B": {
+      "Ni_함량_pct": 18.285,
+      "Co_함량_pct": 7.72,
+      "Li_함량_pct": 3.79,
+      "Mn_함량_pct": 10.905000000000001,
+      "Cu_불순물_pct": 1.82,
+      "Fe_불순물_pct": 1.53,
+      "Al_불순물_pct": 2.6100000000000003
+    },
+    "C": {
+      "Ni_함량_pct": 12.370000000000001,
+      "Co_함량_pct": 5.01,
+      "Li_함량_pct": 2.955,
+      "Mn_함량_pct": 12.0,
+      "Cu_불순물_pct": 3.44,
+      "Fe_불순물_pct": 3.16,
+      "Al_불순물_pct": 4.465
+    }
+  },
+  "grade_count": {
+    "A": {
+      "Ni_함량_pct": 114,
+      "Co_함량_pct": 121,
+      "Li_함량_pct": 118,
+      "Mn_함량_pct": 123,
+      "Cu_불순물_pct": 107,
+      "Fe_불순물_pct": 110,
+      "Al_불순물_pct": 112
+    },
+    "B": {
+      "Ni_함량_pct": 132,
+      "Co_함량_pct": 129,
+      "Li_함량_pct": 127,
+      "Mn_함량_pct": 128,
+      "Cu_불순물_pct": 133,
+      "Fe_불순물_pct": 129,
+      "Al_불순물_pct": 128
+    },
+    "C": {
+      "Ni_함량_pct": 76,
+      "Co_함량_pct": 80,
+      "Li_함량_pct": 76,
+      "Mn_함량_pct": 81,
+      "Cu_불순물_pct": 82,
+      "Fe_불순물_pct": 79,
+      "Al_불순물_pct": 82
+    }
+  },
+  "imputed_cells_by_feature": {
+    "Ni_함량_pct": 35,
+    "Co_함량_pct": 27,
+    "Li_함량_pct": 36,
+    "Mn_함량_pct": 25,
+    "Cu_불순물_pct": 35,
+    "Fe_불순물_pct": 39,
+    "Al_불순물_pct": 35,
+    "원료투입량_kg": 0,
+    "황산투입량_L": 2,
+    "침출온도_C": 35,
+    "침출시간_hr": 34
+  },
+  "target_imputation": false
+}

@@ -1,0 +1,17 @@
+﻿batch_id,split,feature,unit,value,lower_fence,upper_fence,action
+BP-2025-0006,development,Cu_불순물_pct,wt%,4.69,-1.2637500000000006,4.64625,retain_for_review
+BP-2025-0025,development,Cu_불순물_pct,wt%,4.7,-1.2637500000000006,4.64625,retain_for_review
+BP-2025-0101,development,Cu_불순물_pct,wt%,4.67,-1.2637500000000006,4.64625,retain_for_review
+BP-2025-0151,development,Cu_불순물_pct,wt%,5.11,-1.2637500000000006,4.64625,retain_for_review
+BP-2025-0297,development,Cu_불순물_pct,wt%,5.13,-1.2637500000000006,4.64625,retain_for_review
+BP-2025-0325,development,Cu_불순물_pct,wt%,4.91,-1.2637500000000006,4.64625,retain_for_review
+BP-2025-0014,development,Fe_불순물_pct,wt%,4.43,-1.4287500000000002,4.36125,retain_for_review
+BP-2025-0219,development,Fe_불순물_pct,wt%,4.64,-1.4287500000000002,4.36125,retain_for_review
+BP-2025-0252,development,Fe_불순물_pct,wt%,5.73,-1.4287500000000002,4.36125,retain_for_review
+BP-2025-0295,development,Fe_불순물_pct,wt%,4.39,-1.4287500000000002,4.36125,retain_for_review
+BP-2025-0298,development,Fe_불순물_pct,wt%,4.44,-1.4287500000000002,4.36125,retain_for_review
+BP-2025-0299,development,Fe_불순물_pct,wt%,5.19,-1.4287500000000002,4.36125,retain_for_review
+BP-2025-0321,development,Fe_불순물_pct,wt%,5.35,-1.4287500000000002,4.36125,retain_for_review
+BP-2025-0064,development,Ni_회수율_pct,%,68.4,68.96499999999997,101.48500000000001,retain_for_review
+BP-2025-0178,development,Ni_회수율_pct,%,67.94,68.96499999999997,101.48500000000001,retain_for_review
+BP-2025-0178,development,Co_회수율_pct,%,57.48,58.089999999999996,98.01000000000002,retain_for_review
