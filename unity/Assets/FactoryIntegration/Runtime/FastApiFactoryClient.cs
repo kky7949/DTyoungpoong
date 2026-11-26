@@ -28,6 +28,7 @@ namespace Youngpoong.Integration
         private string message;
         private bool halted;
         private bool hasStarted;
+        private bool communicationStarted;
         private UnityWebRequest pendingRequest;
         private static FastApiFactoryClient instance;
 
@@ -64,10 +65,19 @@ namespace Youngpoong.Integration
                 Halt("Base URL에 http://서버주소:8001 형식의 주소를 입력하세요.");
                 return;
             }
-            baseUrl = baseUrl.Trim().TrimEnd('/');
-            if (!HasExecutionHandler()) return;
+            TryBeginCommunication(baseUrl.Trim().TrimEnd('/'));
+        }
+
+        internal bool TryBeginCommunication(string address)
+        {
+            if (!hasStarted || halted || instance != this || communicationStarted || !HasExecutionHandler())
+                return false;
+
+            baseUrl = address;
+            communicationStarted = true;
             ConnectionMessage = "서버 연결 확인 중";
             StartCoroutine(Communicate());
+            return true;
         }
 
         private void OnDisable()

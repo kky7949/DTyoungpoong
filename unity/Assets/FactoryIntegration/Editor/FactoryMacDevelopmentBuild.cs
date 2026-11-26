@@ -13,6 +13,7 @@ namespace Youngpoong.Integration
     internal static class FactoryMacDevelopmentBuild
     {
         private const string ScenePath = "Assets/Scenes/FactoryDemoExhibitionApi.unity";
+        private const string NaturalScenePath = "Assets/Scenes/FactoryDemoExhibitionApiNatural.unity";
         private static bool queued;
         private static double stopDeadline;
 
@@ -66,9 +67,20 @@ namespace Youngpoong.Integration
 
         private static void Build()
         {
-            string output = OutputDirectory;
-            var record = new BuildRecord { unityVersion = Application.unityVersion, scene = ScenePath,
-                appPath = Path.Combine(output, "YoungpoongFactoryDemo.app"), startedAtUtc = DateTime.UtcNow.ToString("o") };
+            Build(ScenePath, OutputDirectory, "YoungpoongFactoryDemo.app");
+        }
+
+        public static void BuildNaturalBatch()
+        {
+            string output = Path.Combine(OutputDirectory, "Natural");
+            if (!Build(NaturalScenePath, output, "YoungpoongFactoryNatural.app"))
+                throw new InvalidOperationException("Natural macOS build failed. Read " + Path.Combine(output, "build-report.json"));
+        }
+
+        private static bool Build(string scenePath, string output, string appName)
+        {
+            var record = new BuildRecord { unityVersion = Application.unityVersion, scene = scenePath,
+                appPath = Path.Combine(output, appName), startedAtUtc = DateTime.UtcNow.ToString("o") };
             try
             {
                 if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -76,27 +88,14 @@ namespace Youngpoong.Integration
                 for (int i = 0; i < SceneManager.sceneCount; i++)
                     if (SceneManager.GetSceneAt(i).isDirty)
                         throw new InvalidOperationException("Save the open scene changes before building.");
-                if (!File.Exists(ScenePath)) throw new FileNotFoundException("API scene is missing.", ScenePath);
+                if (!File.Exists(scenePath)) throw new FileNotFoundException("API scene is missing.", scenePath);
                 if (!BuildPipeline.IsBuildTargetSupported(BuildTargetGroup.Standalone, BuildTarget.StandaloneOSX))
                     throw new InvalidOperationException("macOS Build Support is not installed.");
                 if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneOSX)
                     throw new InvalidOperationException("Switch the active platform to macOS before using this build menu.");
 
-                // Keep unrelated disabled entries; enable exactly the requested API scene.
-                var scenes = EditorBuildSettings.scenes;
-                bool found = false;
-                for (int i = 0; i < scenes.Length; i++)
-                {
-                    bool isApi = scenes[i].path == ScenePath;
-                    scenes[i] = new EditorBuildSettingsScene(scenes[i].path, isApi);
-                    found |= isApi;
-                }
-                if (!found)
-                {
-                    Array.Resize(ref scenes, scenes.Length + 1);
-                    scenes[scenes.Length - 1] = new EditorBuildSettingsScene(ScenePath, true);
-                }
-                EditorBuildSettings.scenes = scenes;
+                if (scenePath == ScenePath)
+                    UseLegacySceneInBuildSettings();
                 PlayerSettings.runInBackground = true;
                 PlayerSettings.insecureHttpOption = InsecureHttpOption.DevelopmentOnly;
                 PlayerSettings.SetScriptingBackend(NamedBuildTarget.Standalone, ScriptingImplementation.Mono2x);
@@ -114,7 +113,7 @@ namespace Youngpoong.Integration
                 record.managedStripping = PlayerSettings.GetManagedStrippingLevel(NamedBuildTarget.Standalone).ToString();
                 Debug.Log("[Factory macOS build] START " + record.appPath);
                 BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
-                    scenes = new[] { ScenePath }, locationPathName = record.appPath,
+                    scenes = new[] { scenePath }, locationPathName = record.appPath,
                     target = BuildTarget.StandaloneOSX, targetGroup = BuildTargetGroup.Standalone,
                     options = BuildOptions.Development
                 });
@@ -164,6 +163,25 @@ namespace Youngpoong.Integration
                 File.WriteAllText(Path.Combine(output, "build-report.json"), JsonUtility.ToJson(record, true));
                 queued = false;
             }
+            return record.result == BuildResult.Succeeded.ToString() && record.signatureVerified;
+        }
+
+        private static void UseLegacySceneInBuildSettings()
+        {
+            var scenes = EditorBuildSettings.scenes;
+            bool found = false;
+            for (int i = 0; i < scenes.Length; i++)
+            {
+                bool isApi = scenes[i].path == ScenePath;
+                scenes[i] = new EditorBuildSettingsScene(scenes[i].path, isApi);
+                found |= isApi;
+            }
+            if (!found)
+            {
+                Array.Resize(ref scenes, scenes.Length + 1);
+                scenes[scenes.Length - 1] = new EditorBuildSettingsScene(ScenePath, true);
+            }
+            EditorBuildSettings.scenes = scenes;
         }
 
         private static string RunCodesign(string arguments, string appPath)

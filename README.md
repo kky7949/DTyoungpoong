@@ -64,6 +64,6 @@ python -m module2_prediction.importance
 
 `web/`에는 React 대시보드와 FastAPI 서버가 있습니다. 실제 분석 모드 `A_ADAPTER=live`는 `A_API_BASE_URL`로 지정한 팀의 별도 HTTP 분석 서비스를 호출합니다. 위 모델 명령은 Python에서 독립적으로 실행합니다. [대시보드 실행과 모의·실제 연동](web/README.md) · [Unity 연동 예제](web/integration/unity/README.md)
 
-웹·서버와 Unity는 2026년 11월 19일 통합·시연 체크포인트를 포함합니다. 11월 18일 팀 환경에서 웹·서버와 Unity Editor 사이의 명령 수신과 완료 보고를 확인했고, 이후 카메라·코드 변경은 Unity Editor와 로컬 시험 서버에서 검증했습니다. Unity Hub에서 `unity/` 폴더를 열고 회사 제공 에셋을 원본 패키지에서 복원한 뒤 기본 씬 `FactoryDemoExhibitionApi`를 실행합니다. [Unity 실행 및 에셋 복원](unity/README.md) · [Unity 진행 이력](unity/CHANGELOG.md)
+Unity는 2026년 11월 26일 기준으로 Natural 전시 씬과 시작 화면의 B 서버 설정을 포함합니다. 11월 24일 같은 Mac의 시험 환경에서 모델·웹·Unity Editor 사이의 완료 보고를 확인했고, 25일에는 macOS 독립 앱에서 두 로컬 B 서버의 명령을 받아 공정을 완료했습니다. Unity Hub에서 `unity/` 폴더를 열고 제공 에셋을 복원한 뒤 `FactoryDemoExhibitionApiNatural`을 실행합니다. [Unity 실행 및 에셋 복원](unity/README.md) · [Unity 진행 이력](unity/CHANGELOG.md)
 
 전처리와 모델의 초기 실험 및 팀 진행 기록은 기존 보고서에서 확인할 수 있습니다. [프로젝트 진행상황 보고서](docs/REPORT.md)

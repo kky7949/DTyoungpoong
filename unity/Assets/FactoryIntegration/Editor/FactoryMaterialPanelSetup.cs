@@ -30,8 +30,8 @@ namespace Youngpoong.Integration
                 var material = materialTransform != null ? materialTransform.GetComponent<TextMeshProUGUI>() :
                     UnityEngine.Object.Instantiate(conditions.gameObject, panel, false).GetComponent<TextMeshProUGUI>();
                 material.name = "MaterialConditionsText";
-                Configure(conditions, new Vector2(0, -24), new Vector2(312, 210), 26);
-                Configure(material, new Vector2(0, -246), new Vector2(312, 390), 22);
+                Configure(conditions, new Vector2(0, -25), new Vector2(304, 165), 25);
+                Configure(material, new Vector2(0, -216), new Vector2(304, 416), 22);
                 conditions.text = FactoryPanelText.Conditions(null);
                 material.text = FactoryPanelText.Material(null);
                 var bridge = new SerializedObject(FindInScene<FactoryApiSimulationBridge>(scene));
@@ -56,6 +56,7 @@ namespace Youngpoong.Integration
             rect.anchoredPosition = position;
             rect.sizeDelta = size;
             text.fontSize = fontSize;
+            text.lineSpacing = 2;
             text.enableAutoSizing = false;
             text.alignment = TextAlignmentOptions.TopLeft;
             text.textWrappingMode = TextWrappingModes.Normal;

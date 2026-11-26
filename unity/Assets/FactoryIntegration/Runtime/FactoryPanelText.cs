@@ -4,12 +4,16 @@ namespace Youngpoong.Integration
 {
     public static class FactoryPanelText
     {
+        private const string ConditionsHeading = "<color=#8FE2DC><size=29><b>공정 조건</b></size></color>\n\n";
+        private const string MaterialHeading = "<color=#8FE2DC><size=29><b>원료 조건</b></size></color>\n\n";
+        private const string ResultsHeading = "<color=#8FE2DC><size=29><b>예상 회수율</b></size></color>\n\n";
+
         public static string Conditions(FactoryCommandDto command)
         {
             if (command == null)
-                return "<size=32><b>공정 조건</b></size>\n\n황산 투입량: -- L\n침출 온도: -- °C\n침출 시간: -- h";
+                return ConditionsHeading + "황산 투입량: -- L\n침출 온도: -- °C\n침출 시간: -- h";
 
-            return "<size=32><b>공정 조건</b></size>\n\n황산 투입량: " + Number(command.process_conditions.sulfuric_acid_l) + " L" +
+            return ConditionsHeading + "황산 투입량: " + Number(command.process_conditions.sulfuric_acid_l) + " L" +
                 "\n침출 온도: " + Number(command.process_conditions.leaching_temperature_c) + " °C" +
                 "\n침출 시간: " + Number(command.process_conditions.leaching_time_hr) + " h";
         }
@@ -17,11 +21,11 @@ namespace Youngpoong.Integration
         public static string Material(FactoryCommandDto command)
         {
             if (command == null)
-                return "<size=28><b>원료 조건</b></size>\n\n원료명: 미수신\n원료 투입량: -- kg\n" +
+                return MaterialHeading + "원료명: 미수신\n원료 투입량: -- kg\n" +
                     "니켈(Ni): --\n코발트(Co): --\n리튬(Li): --\n망간(Mn): --\n구리(Cu): --\n철(Fe): --\n알루미늄(Al): --";
 
             MaterialDto material = command.material;
-            return "<size=28><b>원료 조건</b></size>\n\n원료명: " + Plain(material.name) +
+            return MaterialHeading + "원료명: " + Plain(material.name) +
                 "\n원료 투입량: " + (material.feed_amount_kg.HasValue ? Number(material.feed_amount_kg.Value) + " kg" : "미입력") +
                 "\n니켈(Ni): " + Content(material.ni_content_pct) +
                 "\n코발트(Co): " + Content(material.co_content_pct) +
@@ -39,22 +43,22 @@ namespace Youngpoong.Integration
                 Number(command.expected_recovery.co_recovery_pct) + " %";
             string identifier = command == null ? "미수신" : Plain(command.command_id);
             if (identifier.Length > 18) identifier = identifier.Substring(0, 18) + "…";
-            return "<size=32><b>예상 회수율</b></size>\n\n" + prediction +
-                "\n\n<size=20>웹 최종 적용 조건의 예측값\nUnity 실측 결과가 아닙니다.</size>" +
-                "\n\n<b>연동 상태</b>\n<size=20>" + Plain(connection, 140) +
+            return ResultsHeading + "<size=34><b>" + prediction + "</b></size>" +
+                "\n\n<color=#B7C9D5><size=20>웹 최종 적용 조건의 예측값\nUnity 실측 결과가 아닙니다.</size></color>" +
+                "\n\n<color=#8FE2DC><b>연동 상태</b></color>\n<color=#D9E6ED><size=21>" + Plain(connection, 140) +
                 "\n명령: " + identifier + "\n" + (apiRun ? "웹 공정" : "시연") +
-                " 진행: " + progress.ToString("0", CultureInfo.InvariantCulture) + " %</size>";
+                " 진행: " + progress.ToString("0", CultureInfo.InvariantCulture) + " %</size></color>";
         }
 
         public static string CompletedResults(FactoryCommandDto command, string connection)
         {
             string values = command == null
                 ? "<size=26>웹 예측값 미수신</size>"
-                : "<size=25>니켈(Ni)</size>\n<size=56><b>" + Number(command.expected_recovery.ni_recovery_pct) + "%</b></size>\n\n" +
-                  "<size=25>코발트(Co)</size>\n<size=56><b>" + Number(command.expected_recovery.co_recovery_pct) + "%</b></size>\n\n" +
-                  "<size=20>웹에서 받은 예측값</size>";
-            return "<size=25><b>공정 시연 완료</b></size>\n<size=37><b>예상 회수율</b></size>\n\n" + values +
-                "\n\n<size=20>" + Plain(connection, 140) + "</size>";
+                : "<color=#B7C9D5><size=24>니켈(Ni)</size></color>\n<size=56><b>" + Number(command.expected_recovery.ni_recovery_pct) + "%</b></size>\n\n" +
+                  "<color=#B7C9D5><size=24>코발트(Co)</size></color>\n<size=56><b>" + Number(command.expected_recovery.co_recovery_pct) + "%</b></size>\n\n" +
+                  "<color=#B7C9D5><size=20>웹에서 받은 예측값</size></color>";
+            return "<color=#8FE2DC><size=23><b>공정 시연 완료</b></size></color>\n<size=37><b>예상 회수율</b></size>\n\n" + values +
+                "\n\n<color=#B7C9D5><size=20>" + Plain(connection, 140) + "</size></color>";
         }
 
         private static string Number(double value) { return value.ToString("0.####", CultureInfo.InvariantCulture); }

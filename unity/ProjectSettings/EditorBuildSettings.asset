@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/FactoryDemoExhibitionApiNatural.unity
+    guid: 50645c0efa934b05a29636c5a928409b
+  - enabled: 0
     path: Assets/Scenes/FactoryDemoExhibitionApi.unity
     guid: a40e23653d6848a49d37c4b6f4806dcf
   - enabled: 0
